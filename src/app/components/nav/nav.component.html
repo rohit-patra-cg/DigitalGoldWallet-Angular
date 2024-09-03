@@ -16,7 +16,7 @@
         <div class="text-end ms-auto">
             <a [routerLink]="['/login']"  class="btn btn-outline-primary my-2 my-sm-0 mx-3" type="submit">Log in</a>
             <a [routerLink]="['/signup']" class="btn btn-primary my-2 my-sm-0 me-3" type="submit">Sign up</a>
-            <a [routerLink]="['/']" class="btn btn-primary my-2 my-sm-0 me-3" type="submit">Log out</a>
+            <a class="btn btn-primary my-2 my-sm-0 me-3" (click)="handleLogout()">Log out</a>
         </div>
     </div>
 </nav>

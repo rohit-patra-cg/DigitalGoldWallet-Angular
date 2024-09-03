@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 
@@ -12,11 +12,9 @@ import { CommonModule } from '@angular/common';
 })
 export class NavComponent {
 
-  // TODO: Refractor the code and change it
-  // constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService) {}
 
-  // handleLogout() {
-  //   this.authService.logout();
-  //   this.router.navigate(["/"])
-  // }
+  handleLogout() {
+    this.authService.logout();
+  }
 }
