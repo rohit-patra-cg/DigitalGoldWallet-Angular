@@ -1,0 +1,30 @@
+<div class="container my-5">
+    <h2 class="text-center mb-4">User List</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Balance</th>
+                    <th>Member Since</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of userList">
+                    <td>{{user.name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>
+                        <strong>Street:</strong> {{user.address.street}}<br>
+                        <strong>State:</strong> {{user.address.state}}<br>
+                        <strong>Country:</strong> {{user.address.country}}<br>
+                        <strong>Postal Code:</strong> {{user.address.postalCode}}
+                    </td>
+                    <td>{{user.balance}}</td>
+                    <td>{{convertDateTimeToDateString(user.createdAt)}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

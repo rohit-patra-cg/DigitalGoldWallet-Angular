@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Signup } from '../models/signup';
 import { SuccessResponse } from '../models/success-response';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,15 @@ export class UserService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
+  private headerList = {
+    'Authorization': `Bearer ${localStorage.getItem("jwtToken")}`
+  }
+
   createUser(signup: Signup): Observable<SuccessResponse> {
     return this.http.post<SuccessResponse>(`${this.apiUrl}/add`, signup);
+  }
+
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.apiUrl, { headers: this.headerList })
   }
 }

@@ -1,0 +1,86 @@
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col text-center">
+            <h1>Transaction History</h1>
+            <p>Review your past transactions in your digital gold wallet</p>
+        </div>
+    </div>
+
+    <!-- Additional Controls -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <button class="btn btn-secondary w-100" id="exportPdf" (click)="exportPDF()">Export to PDF</button>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-secondary w-100" id="exportExcel" (click)="exportExcel()">Export to Excel</button>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#filterModal">Filter
+                Transactions</button>
+        </div>
+    </div>
+
+    <!-- Transaction History Table -->
+    <div class="row mb-4">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Created At</th>
+                            <th>Transaction Type</th>
+                            <th>Transaction Status</th>
+                            <th>Quantity (grams)</th>
+                            <th>Amount (₹)</th>
+                            <th>Branch Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionTableBody">
+                        <tr *ngFor="let txn of transactionList">
+                            <td>{{txn.createdAt}}</td>
+                            <td>{{txn.transactionType}}</td>
+                            <td><span class="badge bg-success" [ngClass]="{'bg-success': txn.transactionStatus === 'SUCCESS', 'bg-danger': txn.transactionStatus === 'FAILED'}">{{txn.transactionStatus}}</span></td>
+                            <td>{{txn.quantity}}</td>
+                            <td>₹{{txn.amount}}</td>
+                            <td>
+                                <button class="btn btn-info btn-sm">View Details</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filter Modal -->
+<div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterModalLabel">Filter Transactions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="filterType" class="form-label">Filter Type</label>
+                    <select id="filterType" class="form-select" onchange="updateFilterOptions()">
+                        <option value="">Select Filter Type</option>
+                        <option value="Type">Transaction Type</option>
+                        <option value="Status">Transaction Status</option>
+                    </select>
+                </div>
+                <div class="mb-3" id="filterOptionsContainer" style="display: none;">
+                    <label for="filterOptions" id="filterOptionsLabel" class="form-label"></label>
+                    <select id="filterOptions" class="form-select">
+                        <!-- Options will be added dynamically -->
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="applyFilter()">Apply Filter</button>
+            </div>
+        </div>
+    </div>
+</div>
