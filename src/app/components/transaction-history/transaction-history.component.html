@@ -27,7 +27,7 @@
                 <table class="table table-bordered table-hover">
                     <thead class="table-dark">
                         <tr>
-                            <th>Created At</th>
+                            <th>Transaction Time</th>
                             <th>Transaction Type</th>
                             <th>Transaction Status</th>
                             <th>Quantity (grams)</th>
@@ -39,11 +39,15 @@
                         <tr *ngFor="let txn of transactionList">
                             <td>{{txn.createdAt}}</td>
                             <td>{{txn.transactionType}}</td>
-                            <td><span class="badge bg-success" [ngClass]="{'bg-success': txn.transactionStatus === 'SUCCESS', 'bg-danger': txn.transactionStatus === 'FAILED'}">{{txn.transactionStatus}}</span></td>
+                            <td><span class="badge bg-success"
+                                    [ngClass]="{'bg-success': txn.transactionStatus === 'SUCCESS', 'bg-danger': txn.transactionStatus === 'FAILED'}">{{txn.transactionStatus}}</span>
+                            </td>
                             <td>{{txn.quantity}}</td>
                             <td>₹{{txn.amount}}</td>
                             <td>
-                                <button class="btn btn-info btn-sm">View Details</button>
+                                <button class="btn btn-info btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#detailsModal"
+                                    (click)="setBranchOnViewDetailsClick(txn.branch)">View Details</button>
                             </td>
                         </tr>
                     </tbody>
@@ -64,22 +68,47 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="filterType" class="form-label">Filter Type</label>
-                    <select id="filterType" class="form-select" onchange="updateFilterOptions()">
-                        <option value="">Select Filter Type</option>
-                        <option value="Type">Transaction Type</option>
-                        <option value="Status">Transaction Status</option>
+                    <select id="filterType" class="form-select" [(ngModel)]="typeFilter"
+                        (change)="updateFilterOptions()">
+                        <option value="select">Select Filter Type</option>
+                        <option value="transactionType">Transaction Type</option>
+                        <option value="transactionStatus">Transaction Status</option>
                     </select>
                 </div>
-                <div class="mb-3" id="filterOptionsContainer" style="display: none;">
-                    <label for="filterOptions" id="filterOptionsLabel" class="form-label"></label>
-                    <select id="filterOptions" class="form-select">
-                        <!-- Options will be added dynamically -->
+                <div class="mb-3" id="filterOptionsContainer" [ngClass]="{'collapse': filterOptions.length===0}">
+                    <label for="filterOptions" class="form-label">{{typeFilter==='transactionType'? 'Transaction Type':
+                        'Transaction Status' }}</label>
+                    <select id="filterOptions" class="form-select" [(ngModel)]="filterName">
+                        <option value="select">Select Filter Type</option>
+                        <option value="{{option}}" *ngFor="let option of filterOptions">{{option}}</option>
                     </select>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="applyFilter()">Apply Filter</button>
+                <button type="button" class="btn btn-primary" (click)="handleApplyFilterClick()" data-bs-dismiss="modal" aria-label="Close">Apply Filter</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Details Modal -->
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalLabel">Vendor Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Vendor Name: </strong><span>{{branch.vendor.vendorName}}</span></p>
+                <p><strong>Vendor Address: </strong><span>{{commaSeparatedString(branch.address)}}</span></p>
+                <p><strong>Vendor Description: </strong><span>{{branch.vendor.description}}</span></p>
+                <p><strong>Contact Person: </strong><span>{{branch.vendor.contactPersonName}}</span></p>
+                <p><strong>Email: </strong><span>{{branch.vendor.contactEmail}}</span></p>
+                <p><strong>Phone: </strong><span>{{branch.vendor.contactPhone}}</span></p>
+                <p><strong>Vendor URL: </strong><a href="{{branch.vendor.websiteUrl}}"
+                        target="_blank">{{branch.vendor.websiteUrl}}</a></p>
             </div>
         </div>
     </div>

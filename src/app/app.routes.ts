@@ -6,12 +6,16 @@ import { AuthGuard } from './gaurds/auth.guard'
 import { AllUsersComponent } from './components/all-users/all-users.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { TransactionHistoryComponent } from './components/transaction-history/transaction-history.component';
+import { PhysicalGoldTransactionComponent } from './components/physical-gold-transaction/physical-gold-transaction.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 export const routes: Routes = [
     {path: "", component: LandingComponentComponent},
     {path: "login", component: LoginComponent},
     {path: "signup", component: SignupComponent},
-    {path: "all-users", component: AllUsersComponent, canActivate: [AuthGuard]},
-    {path: "dashboard", component: UserDashboardComponent, canActivate: [AuthGuard]},
-    {path: "transactionHistory/:userId", component: TransactionHistoryComponent, canActivate: [AuthGuard]}
+    {path: "all-users", component: AllUsersComponent, canActivate: [AuthGuard]},//to be changed to admin guard
+    {path: "dashboard/:userId", component: UserDashboardComponent, canActivate: [AuthGuard]},
+    {path: "transactionHistory/:userId", component: TransactionHistoryComponent, canActivate: [AuthGuard]},
+    {path: "physicalGoldTransactionHistory/:userId", component: PhysicalGoldTransactionComponent, canActivate: [AuthGuard]},
+    {path: "admin", component: AdminDashboardComponent, canActivate: [AuthGuard]} //to be changed to admin guard
 ];

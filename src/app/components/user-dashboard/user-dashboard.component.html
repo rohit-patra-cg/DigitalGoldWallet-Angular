@@ -1,1 +1,56 @@
-<p>user-dashboard works!</p>
+<div class="container mt-5">
+    <!-- Dashboard Header -->
+    <div class="row mb-4">
+        <div class="col text-center">
+            <h1 class="fade-in">Digital Gold at Your Fingertips</h1>
+            <p class="fade-in" style="animation-delay: 0.5s;">Your secure platform for managing virtual and physical gold</p>
+        </div>
+    </div>
+
+    <!-- Virtual Gold Holdings and Available Amount -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h4 class="fade-in" style="animation-delay: 1s;">Virtual Gold Holdings</h4>
+                </div>
+                <div class="card-body">
+                    <h2 class="display-4 animated-number" id="gold-holdings">{{userTotalVirtualGoldHolding}} grams</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h4 class="fade-in" style="animation-delay: 1.5s;">Available Amount</h4>
+                </div>
+                <div class="card-body">
+                    <h2 class="display-4 animated-number" id="available-amount">₹ {{userBalance}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="row mb-4">
+        <div class="col-md-4 mb-3">
+            <button class="btn btn-primary btn-lg w-100 fade-in" style="animation-delay: 0.3s;">Buy Gold</button>
+        </div>
+        <div class="col-md-4 mb-3">
+            <button class="btn btn-danger btn-lg w-100 fade-in" style="animation-delay: 0.7s;">Sell Gold</button>
+        </div>
+        <div class="col-md-4 mb-3">
+            <button class="btn btn-warning btn-lg w-100 fade-in" style="animation-delay: 1s;">Convert to Physical Gold</button>
+        </div>
+    </div>
+
+    <!-- Additional Buttons -->
+    <div class="row mb-4 justify-content-center">
+        <div class="col-md-4 mb-3">
+            <button class="btn btn-secondary btn-lg w-100 fade-in" style="animation-delay: 1.3s;" [routerLink]="['/transactionHistory', userId]">Transaction History</button>
+        </div>
+        <div class="col-md-4 mb-3">
+            <button class="btn btn-info btn-lg w-100 fade-in" style="animation-delay: 1.7s;">Physical Gold Transaction History</button>
+        </div>
+    </div>
+</div>

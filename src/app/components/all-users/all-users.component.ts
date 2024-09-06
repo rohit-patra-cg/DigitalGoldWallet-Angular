@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
-import { error } from 'console';
 
 @Component({
   selector: 'app-all-users',

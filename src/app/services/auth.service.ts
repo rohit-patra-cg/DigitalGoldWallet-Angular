@@ -34,7 +34,7 @@ export class AuthService {
           }
           this.token.next(response.jwt);
           this.authenticated = true;
-          this.router.navigate(["/dashboard"])
+          this.router.navigate([`/dashboard:${response.userId}`])
         }
         return response;
       }
