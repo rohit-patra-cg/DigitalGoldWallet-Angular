@@ -1,4 +1,6 @@
-<div class="container mt-5">
+<div class="animated-background"></div>
+<div class="overlay"></div>
+<div class="container mt-5 text-white">
     <div class="row mb-4">
         <div class="col text-center">
             <h1>Transaction History</h1>
@@ -24,8 +26,8 @@
     <div class="row mb-4">
         <div class="col">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead class="table-dark">
+                <table class="table table-bordered table-hover table-dark">
+                    <thead>
                         <tr>
                             <th>Transaction Time</th>
                             <th>Transaction Type</th>
@@ -45,7 +47,7 @@
                             <td>{{txn.quantity}}</td>
                             <td>₹{{txn.amount}}</td>
                             <td>
-                                <button class="btn btn-info btn-sm" data-bs-toggle="modal"
+                                <button class="btn btn-info btn-sm " data-bs-toggle="modal"
                                     data-bs-target="#detailsModal"
                                     (click)="setBranchOnViewDetailsClick(txn.branch)">View Details</button>
                             </td>
@@ -58,9 +60,9 @@
 </div>
 
 <!-- Filter Modal -->
-<div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+<div class="modal fade text-white" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true" data-bs-theme="dark">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content dark">
             <div class="modal-header">
                 <h5 class="modal-title" id="filterModalLabel">Filter Transactions</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -93,7 +95,7 @@
 </div>
 
 <!-- Details Modal -->
-<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+<div class="modal fade text-white" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true" data-bs-theme="dark">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

@@ -1,4 +1,6 @@
-<div class="container my-5">
+<div class="animated-background"></div>
+<div class="overlay"></div>
+<div class="container my-5 text-white">
     <h2 class="text-center mb-4">User List</h2>
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
@@ -11,7 +13,7 @@
                     <th>Member Since</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="table-dark">
                 <tr *ngFor="let user of userList">
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>

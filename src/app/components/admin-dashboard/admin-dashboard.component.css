@@ -1,0 +1,57 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    /* font-family: Arial, Helvetica, sans-serif; */
+}
+
+.animated-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://miro.medium.com/v2/resize:fit:1024/1*JdFcSToXFHmqyrGEz7gyqg.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    z-index: -1;
+    animation: moveBackground 35s linear infinite;
+}
+
+@keyframes moveBackground {
+    0% { background-position: 0 0; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0 0; }
+}
+
+.dashboard-card {
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.dashboard-card:hover {
+    transform: scale(1.05);
+}
+
+.card-icon {
+    font-size: 3.5rem;
+    color: #fff;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Darken the background for better readability */
+    z-index: 0;
+}
