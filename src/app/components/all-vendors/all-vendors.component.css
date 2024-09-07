@@ -35,20 +35,3 @@
 table {
     opacity: 85%;
 }
-.landHead{
-    font-weight: 400;
-}
-.land{
-    width: auto;
-}
-.signupButton{
-    width: auto;
-    margin: auto;
-}
-.mv{
-    background-color: rgb(173, 169, 130);
-    border-radius: 20px;
-}
-.card{
-    border-radius: 20px;
-}

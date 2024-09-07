@@ -12,7 +12,7 @@ export class TransactionService {
   private apiUrl = "http://localhost:8080/api/v1/transaction_history";
 
   private headerList = {
-    'Authorization': `Bearer ${localStorage.getItem("jwtToken")}`
+    'Authorization': `Bearer ${localStorage?.getItem("jwtToken")}`
   }
 
   constructor(private http: HttpClient) { }

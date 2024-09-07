@@ -12,12 +12,12 @@ import { PhysicalGoldTransaction } from '../models/physical-gold-transaction';
 })
 export class UserService {
 
-  private apiUrl = "http://localhost:8080/api/v1/users"
+  private apiUrl = "http://localhost:8080/api/v1/users";
 
   constructor(private http: HttpClient) { }
 
   private headerList = {
-    'Authorization': `Bearer ${localStorage.getItem("jwtToken")}`
+    'Authorization': `Bearer ${localStorage?.getItem("jwtToken")}`
   }
 
   createUser(signup: Signup): Observable<SuccessResponse> {

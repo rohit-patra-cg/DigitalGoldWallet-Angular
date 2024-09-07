@@ -1,0 +1,35 @@
+<div class="animated-background"></div>
+<div class="overlay"></div>
+<div class="container my-5 text-white">
+    <h2 class="text-center mb-4">Vendor List</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Vendor Name</th>
+                    <th>Description</th>
+                    <th>Contact Person Name</th>
+                    <th>Contact Phone</th>
+                    <th>Contact Email</th>
+                    <th>Website URL</th>
+                    <th>Total Gold Quantity (grams)</th>
+                    <th>Current Gold Quantity (grams)</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody class="table-dark">
+                <tr *ngFor="let vendor of vendorList">
+                    <td>{{vendor.vendorName}}</td>
+                    <td>{{vendor.description}}</td>
+                    <td>{{vendor.contactPersonName}}</td>
+                    <td>{{vendor.contactPhone}}</td>
+                    <td>{{vendor.contactEmail}}</td>
+                    <td><a [href]="vendor.websiteUrl" target="_blank" rel="noopener noreferrer">Link</a></td>
+                    <td>{{vendor.totalGoldQuantity}}</td>
+                    <td>{{vendor.currentGoldPrice}}</td>
+                    <td>{{convertDateTimeToDateString(vendor.createdAt)}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

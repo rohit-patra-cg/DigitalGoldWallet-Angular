@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from 'express';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [RouterModule, ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
+  
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
@@ -20,6 +22,8 @@ export class LoginComponent {
       password: ['', [Validators.required]]
     })
   }
+  
+ 
 
   onSubmit() {
     if (this.loginForm.valid){

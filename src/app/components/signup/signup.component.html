@@ -1,8 +1,10 @@
+<div class="animated-background"></div>
+<div class="overlay"></div>
 <div class="container">
     <div class="row min-vh-100 justify-content-center align-items-center">
-        <div class="col-md-6 col-lg-10">
-            <div class="card">
-                <div class="card-body">
+        <div class="col-md-6 col-lg-10 mt-5">
+            <div class="card ">
+                <div class="card-body mv">
                     <h2 class="card-title text-center mb-4">Sign Up</h2>
                     <form class="row" [formGroup]="signUpForm" (ngSubmit)="signUpFormSubmit()">
                         <div class="col-md-6">
@@ -49,7 +51,7 @@
                                 <input type="text" class="form-control" id="country" formControlName="country">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block mt-3 w-80">Sign Up</button>
+                        <button type="submit" class="btn btn-primary btn-block mt-3 text-center signupButton">Sign Up</button>
                         <p class="text-center mt-3">Already have an account? <a [routerLink]="['/login']">Log In</a>
                         </p>
                     </form>
