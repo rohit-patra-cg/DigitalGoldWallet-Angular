@@ -9,6 +9,8 @@ import { TransactionHistoryComponent } from './components/transaction-history/tr
 import { PhysicalGoldTransactionComponent } from './components/physical-gold-transaction/physical-gold-transaction.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AllVendorsComponent } from './components/all-vendors/all-vendors.component';
+import { AllPhysicalGoldTransactionsComponent } from './all-physical-gold-transactions/all-physical-gold-transactions.component';
+import { AllTransactionHistoryComponent } from './all-transaction-history/all-transaction-history.component';
 
 export const routes: Routes = [
     {path: "", component: LandingComponentComponent},
@@ -19,5 +21,7 @@ export const routes: Routes = [
     {path: "dashboard/:userId", component: UserDashboardComponent, canActivate: [AuthGuard]},
     {path: "transactionHistory/:userId", component: TransactionHistoryComponent, canActivate: [AuthGuard]},
     {path: "physicalGoldTransactionHistory/:userId", component: PhysicalGoldTransactionComponent, canActivate: [AuthGuard]},
-    {path: "admin", component: AdminDashboardComponent, canActivate: [AuthGuard]} //to be changed to admin guard
+    {path: "admin", component: AdminDashboardComponent, canActivate: [AuthGuard]}, //to be changed to admin guard
+    {path: "all-physicalGoldTransactionHistory", component: AllPhysicalGoldTransactionsComponent, canActivate: [AuthGuard]}, //to be changed to admin guard
+    {path: "all-transactionHistory", component: AllTransactionHistoryComponent, canActivate: [AuthGuard]} //to be changed to admin guard
 ];

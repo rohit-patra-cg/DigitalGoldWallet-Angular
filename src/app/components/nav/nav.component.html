@@ -1,5 +1,5 @@
 <!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg nav-inner fixed-top navbar-dark container">
+<nav class="navbar navbar-expand-lg nav-inner navbar-dark container">
     <a class="navbar-brand" href="#">Dribbble</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +14,7 @@
         </ul>
         <!-- ms-auto class is for LeftToRight margin (move stuff to right)  -->
         <div class="text-end ms-auto">
-            <a class="btn btn-info my-2 my-sm-0 me-3" (click)="handleLogout()" *ngIf="true">Log out</a>
+            <a class="btn btn-info my-2 my-sm-0 me-3" (click)="handleLogout()" *ngIf="isUserOrAdminLoggedIn()">Log out</a>
         </div>
     </div>
 </nav>

@@ -20,13 +20,13 @@ export class UserDashboardComponent implements OnInit {
     this.userService.getAllVitualGoldHoldings(this.userId).subscribe({
       next: resp => {
         const holding = resp.map(holding => holding.quantity).reduce((q1, q2) => q1 + q2, 0);
-        this.animateNumber('gold-holdings', 0, holding, 2000);
+        this.animateNumber('gold-holdings', 0, holding, 500);
       },
       error: err => console.log(err)
     });
     this.userService.getUserBalance(this.userId).subscribe({
       next: balance => {
-        this.animateNumber('available-amount', 0, balance, 2000);
+        this.animateNumber('available-amount', 0, balance, 500);
       },
       error: err => console.log(err)
     });

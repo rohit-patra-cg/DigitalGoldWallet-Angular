@@ -14,7 +14,14 @@ export class NavComponent {
 
   constructor(private authService: AuthService) {}
 
-  handleLogout() {
+  handleLogout(): void {
     this.authService.logout();
+  }
+
+  isUserOrAdminLoggedIn(): boolean {
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem("isAuthenticated")==="true" || localStorage.getItem("isAdminAuthenticated")==="true";
+    }
+    return false;
   }
 }

@@ -10,7 +10,7 @@
     <div class="row g-4">
         <!-- View All Users Card -->
         <div class="col-md-4">
-            <div class="card bg-primary text-white dashboard-card" onclick="viewAllUsers()">
+            <div class="card bg-primary text-white dashboard-card" [routerLink] = "['/all-users']">
                 <div class="card-body text-center">
                     <i class="bi bi-people card-icon"></i>
                     <h5 class="card-title">View All Users</h5>
@@ -19,7 +19,7 @@
         </div>
         <!-- View All Vendors Card -->
         <div class="col-md-4">
-            <div class="card bg-secondary text-white dashboard-card" onclick="viewAllVendors()">
+            <div class="card bg-secondary text-white dashboard-card" [routerLink] = "['/all-vendors']">
                 <div class="card-body text-center">
                     <i class="bi bi-person-badge card-icon"></i>
                     <h5 class="card-title">View All Vendors</h5>
@@ -28,7 +28,7 @@
         </div>
         <!-- View All Vendor Branches Card -->
         <div class="col-md-4">
-            <div class="card bg-success text-white dashboard-card" onclick="viewAllVendorBranches()">
+            <div class="card bg-success text-white dashboard-card">
                 <div class="card-body text-center">
                     <i class="bi bi-building card-icon"></i>
                     <h5 class="card-title">View All Vendor Branches</h5>
@@ -37,7 +37,7 @@
         </div>
         <!-- Add Vendors Card -->
         <div class="col-md-4">
-            <div class="card bg-info text-white dashboard-card" onclick="addVendors()">
+            <div class="card bg-info text-white dashboard-card">
                 <div class="card-body text-center">
                     <i class="bi bi-person-plus card-icon"></i>
                     <h5 class="card-title">Add Vendors</h5>
@@ -46,7 +46,7 @@
         </div>
         <!-- View All Physical Gold Transactions Card -->
         <div class="col-md-4">
-            <div class="card bg-warning text-white dashboard-card" onclick="viewAllPhysicalGoldTransactions()">
+            <div class="card bg-warning text-white dashboard-card" [routerLink]="['/all-physicalGoldTransactionHistory']">
                 <div class="card-body text-center">
                     <i class="bi bi-file-earmark-bar-graph card-icon"></i>
                     <h5 class="card-title">View All Physical Gold Transactions</h5>
@@ -55,7 +55,7 @@
         </div>
         <!-- View All Transaction History Card -->
         <div class="col-md-4">
-            <div class="card bg-danger text-white dashboard-card" onclick="viewAllTransactionHistory()">
+            <div class="card bg-danger text-white dashboard-card" [routerLink]="['/all-transactionHistory']">
                 <div class="card-body text-center">
                     <i class="bi bi-clock-history card-icon"></i>
                     <h5 class="card-title">View All Transaction History</h5>

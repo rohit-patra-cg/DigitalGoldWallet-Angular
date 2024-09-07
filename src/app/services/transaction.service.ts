@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { TransactionHistory } from '../models/transaction-history';
 
@@ -19,5 +18,9 @@ export class TransactionService {
 
   getAllTransactionByUserId(userId: number): Observable<TransactionHistory[]> {
     return this.http.get<TransactionHistory[]>(`${this.apiUrl}/by_user/${userId}`, {headers: this.headerList});
+  }
+
+  getAllTransactions(): Observable<TransactionHistory[]> {
+    return this.http.get<TransactionHistory[]>(`${this.apiUrl}`, {headers: this.headerList});
   }
 }
