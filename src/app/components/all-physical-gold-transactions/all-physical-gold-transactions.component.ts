@@ -1,22 +1,21 @@
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { PhysicalGoldTransactionService } from '../../services/physical-gold-transaction.service';
 import { PhysicalGoldTransaction } from '../../models/physical-gold-transaction';
-import { UserService } from '../../services/user.service';
-import { ActivatedRoute } from '@angular/router';
 import { VendorBranch } from '../../models/vendor-branch';
 import { Address } from '../../models/address';
 
 @Component({
-  selector: 'app-physical-gold-transaction',
+  selector: 'app-all-physical-gold-transactions',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './physical-gold-transaction.component.html',
-  styleUrl: './physical-gold-transaction.component.css'
+  imports: [CommonModule],
+  templateUrl: './all-physical-gold-transactions.component.html',
+  styleUrl: './all-physical-gold-transactions.component.css'
 })
-export class PhysicalGoldTransactionComponent implements OnInit {
+export class AllPhysicalGoldTransactionsComponent {
+  constructor(private transactionService: PhysicalGoldTransactionService) { }
+
   transactionList!: PhysicalGoldTransaction[];
-  userId!: number;
   branch: VendorBranch = {
     branchId: -1,
     createdAt: new Date(),
@@ -25,25 +24,11 @@ export class PhysicalGoldTransactionComponent implements OnInit {
     vendor: { contactEmail: "", contactPersonName: "", createdAt: new Date(), description: "", vendorId: -1, totalGoldQuantity: -1, currentGoldPrice: -1, contactPhone: "", vendorName: "", websiteUrl: "" }
   };
 
-  constructor(private userService: UserService, private router: ActivatedRoute) { }
-  
   ngOnInit(): void {
-    this.router.params.subscribe({
-      next: params => this.userId = params['userId'],
-      error: err => console.log(err)
-    });
-    this.userService.getAllPhysicalGoldTransactions(this.userId).subscribe({
+    this.transactionService.getAllPhysicalGoldTransactions().subscribe({
       next: resp => this.transactionList = resp,
       error: err => console.log(err)
     });
-  }
-
-  exportPDF() {
-    //TODO
-  }
-
-  exportExcel() {
-    //TODO
   }
 
   commaSeparatedString(address: Address) {
@@ -52,5 +37,13 @@ export class PhysicalGoldTransactionComponent implements OnInit {
 
   setBranchOnViewDetailsClick(branch: VendorBranch) {
     this.branch = branch;
+  }
+
+  exportPDF() {
+    //TODO
+  }
+
+  exportExcel() {
+    //TODO
   }
 }

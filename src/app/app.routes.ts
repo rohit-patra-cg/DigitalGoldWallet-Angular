@@ -9,8 +9,8 @@ import { TransactionHistoryComponent } from './components/transaction-history/tr
 import { PhysicalGoldTransactionComponent } from './components/physical-gold-transaction/physical-gold-transaction.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AllVendorsComponent } from './components/all-vendors/all-vendors.component';
-import { AllPhysicalGoldTransactionsComponent } from './all-physical-gold-transactions/all-physical-gold-transactions.component';
-import { AllTransactionHistoryComponent } from './all-transaction-history/all-transaction-history.component';
+import { AllPhysicalGoldTransactionsComponent } from './components/all-physical-gold-transactions/all-physical-gold-transactions.component';
+import { AllTransactionHistoryComponent } from './components/all-transaction-history/all-transaction-history.component';
 
 export const routes: Routes = [
     {path: "", component: LandingComponentComponent},
