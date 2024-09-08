@@ -5,7 +5,7 @@
       <div class="col-md-8">
         <div class="form-container">
           <h2 class="text-center">Add Vendor</h2>
-          <form class="row" [formGroup]="addVendorForm" (ngSubmit)="addVendorFormSubmit()">
+          <form class="row" [formGroup]="addVendorForm" (ngSubmit)="handleSubmit()">
             <div class="mb-3">
               <label for="branchName" class="form-label "><i class="bi bi-building"></i> Branch Name</label>
               <input type="text" class="form-control gs" id="branchName" formControlName="vendorName" placeholder="Enter branch name" required>

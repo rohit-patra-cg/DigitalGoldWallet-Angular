@@ -8,8 +8,7 @@ import { SuccessResponse } from '../models/success-response';
   providedIn: 'root'
 })
 export class VendorService {
- 
-  
+
   private apiUrl = "http://localhost:8080/api/v1/vendor";
 
   constructor(private http: HttpClient) { }
@@ -21,7 +20,12 @@ export class VendorService {
   getAllVendors(): Observable<Vendor[]> {
     return this.http.get<Vendor[]>(this.apiUrl, { headers: this.headerList });
   }
-  addVendor(vendor:Vendor):Observable<SuccessResponse>{
-    return this.http.post<SuccessResponse>(`${this.apiUrl}/add`, vendor,{headers: this.headerList});
+
+  addVendor(vendor: Vendor): Observable<SuccessResponse> {
+    return this.http.post<SuccessResponse>(`${this.apiUrl}/add`, vendor, { headers: this.headerList });
+  }
+
+  getVendorByVendorId(vendorId: number): Observable<Vendor> {
+    return this.http.get<Vendor>(`${this.apiUrl}/${vendorId}`, { headers: this.headerList });
   }
 }

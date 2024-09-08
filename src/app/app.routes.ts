@@ -27,5 +27,6 @@ export const routes: Routes = [
     {path: "physicalGoldTransactionHistory/:userId", component: PhysicalGoldTransactionComponent, canActivate: [AuthGuard]},
     {path: "admin", component: AdminDashboardComponent, canActivate: [AuthGuard]}, //to be changed to admin guard
     {path: "all-physicalGoldTransactionHistory", component: AllPhysicalGoldTransactionsComponent, canActivate: [AuthGuard]}, //to be changed to admin guard
-    {path: "all-transactionHistory", component: AllTransactionHistoryComponent, canActivate: [AuthGuard]} //to be changed to admin guard
+    {path: "all-transactionHistory", component: AllTransactionHistoryComponent, canActivate: [AuthGuard]}, //to be changed to admin guard
+    {path: "update-vendor/:vendorId", component: AddVendorComponent, canActivate: [AuthGuard]} //to be changed to admin guard
 ];

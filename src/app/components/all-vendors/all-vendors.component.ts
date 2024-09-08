@@ -16,20 +16,17 @@ import autoTable from 'jspdf-autotable';
   styleUrl: './all-vendors.component.css'
 })
 export class AllVendorsComponent implements OnInit {
-
   vendorList!: Vendor[];
 
   constructor(private vendorService: VendorService) { }
 
   ngOnInit(): void {
     this.vendorService.getAllVendors().subscribe({
-      next: resp => {
-        this.vendorList = resp;
-        console.log(resp);
-      },
+      next: resp => this.vendorList = resp,
       error: err => console.log(err)
     });
   }
+
   convertDateTimeToDateString(date: Date): string {
     return String(date)?.replace(/T.*/, '');
   }
@@ -52,8 +49,9 @@ export class AllVendorsComponent implements OnInit {
 
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Vendor List');
-    XLSX.writeFile(wb, 'Vendor_list.xlsx');
+    XLSX.writeFile(wb, 'vendor-list.xlsx');
   }
+
   exportPDF() {
     const doc = new jsPDF();
     doc.text("Vendor List", 14, 16);
@@ -81,7 +79,7 @@ export class AllVendorsComponent implements OnInit {
       }
     });
 
-    doc.save('VendorList.pdf');
+    doc.save('vendor-list.pdf');
   }
 
 }
