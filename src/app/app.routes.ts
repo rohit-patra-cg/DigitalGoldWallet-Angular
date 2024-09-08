@@ -11,11 +11,15 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { AllVendorsComponent } from './components/all-vendors/all-vendors.component';
 import { AllPhysicalGoldTransactionsComponent } from './components/all-physical-gold-transactions/all-physical-gold-transactions.component';
 import { AllTransactionHistoryComponent } from './components/all-transaction-history/all-transaction-history.component';
+import { AddVendorComponent } from './components/add-vendor/add-vendor.component';
+import { AllVendorBranchesComponent } from './components/all-vendor-branches/all-vendor-branches.component';
 
 export const routes: Routes = [
     {path: "", component: LandingComponentComponent},
     {path: "login", component: LoginComponent},
     {path: "signup", component: SignupComponent},
+    {path: "add-vendor", component: AddVendorComponent , canActivate: [AuthGuard]},//to be changed
+    {path: "all-vendor-branch", component: AllVendorBranchesComponent , canActivate: [AuthGuard]},//to be changed
     {path: "all-vendors", component: AllVendorsComponent, canActivate: [AuthGuard]},//to be changed to admin guard
     {path: "all-users", component: AllUsersComponent, canActivate: [AuthGuard]},//to be changed to admin guard
     {path: "dashboard/:userId", component: UserDashboardComponent, canActivate: [AuthGuard]},

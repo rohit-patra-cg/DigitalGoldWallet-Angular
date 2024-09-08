@@ -46,9 +46,14 @@ table {
     margin: auto;
 }
 .mv{
-    background-color: rgb(173, 169, 130);
+    background-color: rgba(40, 38, 38, 0.9);
     border-radius: 20px;
 }
 .card{
     border-radius: 20px;
+    color: #d2cfcf  ;
+}
+.sg{
+    background-color: #cec8c8;
+    
 }

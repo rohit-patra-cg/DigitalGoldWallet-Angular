@@ -1,0 +1,84 @@
+body {
+    background: url('https://example.com/your-animated-background.gif') no-repeat center center fixed;
+    background-size: cover;
+    animation: backgroundAnimation 30s infinite;
+}
+
+@keyframes backgroundAnimation {
+    0%, 100% {background-position: center center;}
+    50% {background-position: bottom right;}
+}
+
+.form-container {
+    background: rgba(56, 55, 55, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+    animation: fadeIn 2s;
+    color: aliceblue;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.scrollable {
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.bi {
+    margin-right: 8px;
+}
+
+.bi-building { color: #007bff; }
+.bi-card-text { color: #28a745; }
+.bi-person { color: #17a2b8; }
+.bi-envelope { color: #ffc107; }
+.bi-phone { color: #dc3545; }
+.bi-globe { color: #6f42c1; }
+.bi-calculator { color: #fd7e14; }
+.bi-currency-dollar { color: #20c997; }
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Darken the background for better readability */
+    z-index: 0;
+}
+
+.animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://miro.medium.com/v2/resize:fit:1024/1*JdFcSToXFHmqyrGEz7gyqg.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    z-index: -1;
+    animation: moveBackground 35s linear infinite;
+}
+
+@keyframes moveBackground {
+    0% { background-position: 0 0; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0 0; }
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    opacity: 90%;
+}
+
+table {
+    opacity: 85%;
+}
+.gs{
+    background-color: #cfcccc;
+}

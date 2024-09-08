@@ -1,0 +1,45 @@
+<div class="animated-background"></div>
+<div class="overlay"></div>
+<div class="container mt-2 animate__animated animate__fadeIn">
+    <!-- Page Header -->
+    <div class="row mb-4 text-center">
+        <div class="col">
+            <h1 class="animate__animated animate__bounceIn">Vendor Branches</h1>
+            <p>Manage and review all vendor branches in your digital gold wallet network</p>
+        </div>
+    </div>
+
+    <!-- Vendor Branches Table -->
+    <div class="row mb-4">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="vendorBranchTable">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Vendor</th>
+                            <th>Address</th>
+                            <th>Quantity</th>
+                            <th>Created At</th>
+                            <th>View Details</th>
+                            <th>Update</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vendorBranchTableBody">
+                        <tr *ngFor="let vendorBranch of vendorBranchList">
+                            <td>{{ vendorBranch.vendor.vendorName }}</td>
+                            <td>{{ vendorBranch.address.city }}</td>
+                            <td>{{ vendorBranch.quantity }}</td>
+                            <td>{{convertDateTimeToDateString(vendorBranch.createdAt)}}</td>
+                            <td>
+                                <button class="btn btn-info btn-sm btn-icon"><i class="bi bi-eye"></i> View Details</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-warning btn-sm btn-icon"><i class="bi bi-pencil-square"></i> Update</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
