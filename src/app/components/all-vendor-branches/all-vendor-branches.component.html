@@ -1,6 +1,6 @@
 <div class="animated-background"></div>
 <div class="overlay"></div>
-<div class="container mt-2 animate__animated animate__fadeIn">
+<div class="container mt-2 animate__animated animate__fadeIn text-white">
     <!-- Page Header -->
     <div class="row mb-4 text-center">
         <div class="col">
@@ -8,37 +8,60 @@
             <p>Manage and review all vendor branches in your digital gold wallet network</p>
         </div>
     </div>
-
     <!-- Vendor Branches Table -->
     <div class="row mb-4">
         <div class="col">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover" id="vendorBranchTable">
-                    <thead class="table-dark">
+                <table class="table table-bordered table-hover table-dark">
+                    <thead>
                         <tr>
                             <th>Vendor</th>
                             <th>Address</th>
                             <th>Quantity</th>
                             <th>Created At</th>
                             <th>View Details</th>
-                            <th>Update</th>
                         </tr>
                     </thead>
                     <tbody id="vendorBranchTableBody">
                         <tr *ngFor="let vendorBranch of vendorBranchList">
                             <td>{{ vendorBranch.vendor.vendorName }}</td>
-                            <td>{{ vendorBranch.address.city }}</td>
+                            <td>
+                                <strong>Street:</strong> {{vendorBranch.address.street}}<br>
+                                <strong>State:</strong> {{vendorBranch.address.state}}<br>
+                                <strong>Country:</strong> {{vendorBranch.address.country}}<br>
+                                <strong>Postal Code:</strong> {{vendorBranch.address.postalCode}}
+                            </td>
                             <td>{{ vendorBranch.quantity }}</td>
                             <td>{{convertDateTimeToDateString(vendorBranch.createdAt)}}</td>
                             <td>
-                                <button class="btn btn-info btn-sm btn-icon"><i class="bi bi-eye"></i> View Details</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-warning btn-sm btn-icon"><i class="bi bi-pencil-square"></i> Update</button>
+                                <button class="btn btn-info btn-sm btn-icon" data-bs-toggle="modal"
+                                data-bs-target="#detailsModal"
+                                (click)="setBranchOnViewDetailsClick(vendorBranch)"><i class="bi bi-eye"></i> View Details</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Details Modal -->
+<div class="modal fade text-white" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true" data-bs-theme="dark">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalLabel">Vendor Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Vendor Name: </strong><span>{{branch.vendor.vendorName}}</span></p>
+                <p><strong>Vendor Address: </strong><span>{{commaSeparatedString(branch.address)}}</span></p>
+                <p><strong>Vendor Description: </strong><span>{{branch.vendor.description}}</span></p>
+                <p><strong>Contact Person: </strong><span>{{branch.vendor.contactPersonName}}</span></p>
+                <p><strong>Email: </strong><span>{{branch.vendor.contactEmail}}</span></p>
+                <p><strong>Phone: </strong><span>{{branch.vendor.contactPhone}}</span></p>
+                <p><strong>Vendor URL: </strong><a href="{{branch.vendor.websiteUrl}}"
+                        target="_blank">{{branch.vendor.websiteUrl}}</a></p>
             </div>
         </div>
     </div>

@@ -7,18 +7,22 @@ import { Address } from '../../models/address';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-all-physical-gold-transactions',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule,FormsModule],
   templateUrl: './all-physical-gold-transactions.component.html',
   styleUrl: './all-physical-gold-transactions.component.css'
 })
+
 export class AllPhysicalGoldTransactionsComponent {
+  transactionList!: PhysicalGoldTransaction[];
+
   constructor(private transactionService: PhysicalGoldTransactionService) { }
 
-  transactionList!: PhysicalGoldTransaction[];
   branch: VendorBranch = {
     branchId: -1,
     createdAt: new Date(),
@@ -41,10 +45,36 @@ export class AllPhysicalGoldTransactionsComponent {
   setBranchOnViewDetailsClick(branch: VendorBranch) {
     this.branch = branch;
   }
+  convertDateTimeToDateString(date: Date): string {
+    return String(date)?.replace(/T.*/, '');
+  }
 
   exportPDF() {
-    //TODO
-  }
+    // const doc = new jsPDF();
+    // doc.text("All Physical Gold Transactions", 14, 16);
+
+    // const tableBody = this.transactionList.map(physicalgoldtxnlist => [
+    //   physicalgoldtxnlist.createdAt instanceof Date ? physicalgoldtxnlist.createdAt.toLocaleDateString() : physicalgoldtxnlist.createdAt,
+    //   physicalgoldtxnlist.deliveryAddress,
+    //   physicalgoldtxnlist.quantity.toString(), // Ensure quantity is a string
+    // ]);
+
+    // autoTable(doc, {
+    //   head: [['Created At', 'Delivery Address', 'Quantity (grams)']],
+    //   body: tableBody,
+    //   startY: 20,
+    //   styles: { fontSize: 10 },
+    //   columnStyles: {
+    //     0: { cellWidth: 40 },
+    //     1: { cellWidth: 90 }, // Adjust as necessary
+    //     2: { cellWidth: 30 },
+    //   }
+    // });
+
+    // doc.save('all-physical-gold-transaction-history.pdf');
+}
+
+  
 
   exportExcel() {
     const tableBody = this.transactionList.map(physicalgoldtxnlist => [

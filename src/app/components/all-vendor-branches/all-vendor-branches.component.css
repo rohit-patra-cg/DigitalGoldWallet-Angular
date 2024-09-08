@@ -1,16 +1,3 @@
-/* body {
-    background-image: url('https://source.unsplash.com/random/1920x1080?gold'); 
-    background-size: cover;
-    background-attachment: fixed;
-    color: hsl(0, 0%, 100%);
-    animation: backgroundAnimation 30s infinite alternate;
-}
-
-@keyframes backgroundAnimation {
-    0% { background-position: top left; }
-    100% { background-position: bottom right; }
-} */
-
 .table-dark th {
     color: #ffffff;
 }
