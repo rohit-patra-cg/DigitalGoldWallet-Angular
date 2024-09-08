@@ -6,6 +6,9 @@ import { UserService } from '../../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { VendorBranch } from '../../models/vendor-branch';
 import { Address } from '../../models/address';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-physical-gold-transaction',
@@ -43,9 +46,22 @@ export class PhysicalGoldTransactionComponent implements OnInit {
   }
 
   exportExcel() {
-    //TODO
-  }
+    const tableBody = this.transactionList.map(physicalgoldtxnlist => [
+      physicalgoldtxnlist.createdAt,
+      this.commaSeparatedString(physicalgoldtxnlist.deliveryAddress),
+      physicalgoldtxnlist.quantity      
+    ]);
 
+    const ws = XLSX.utils.aoa_to_sheet([
+      ['Created At', 'Delivery Address', 'Quantity (grams)'],
+      ...tableBody
+    ]);
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Physical Gold Transaction');
+    XLSX.writeFile(wb, 'physical-gold-transaction-history.xlsx');
+  }
+  
   commaSeparatedString(address: Address) {
     return `${address.street}, ${address.city}, ${address.state}, ${address.country}, PIN-${address.postalCode}`
   }

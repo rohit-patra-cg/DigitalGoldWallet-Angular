@@ -1,7 +1,20 @@
 <div class="animated-background"></div>
 <div class="overlay"></div>
 <div class="container my-5 text-white">
-    <h2 class="text-center mb-4">Vendor List</h2>
+    <h1 class="text-center mb-4">Vendor List</h1>
+    <div class="row mb-4">
+        <div class="col-md-4">
+        <div> <button class="btn btn-secondary w-100 " id="exportPdf" (click)="exportPDF()">Export to PDF </button></div>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="col-md-4">
+            <button class="btn btn-secondary w-100" id="exportExcel" (click)="exportExcel()">Export to Excel</button>
+        </div>
+        <!-- <div class="col-md-4">
+            <button class="btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#filterModal">Filter
+                Transactions</button>
+        </div> -->
+</div>
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead class="table-dark">
@@ -14,7 +27,7 @@
                     <th>Website URL</th>
                     <th>Total Gold Quantity (grams)</th>
                     <th>Current Gold Quantity (grams)</th>
-                    <th>Created At</th>
+                    <th>Update Vendor Details</th>
                 </tr>
             </thead>
             <tbody class="table-dark">
@@ -27,7 +40,7 @@
                     <td><a [href]="vendor.websiteUrl" target="_blank" rel="noopener noreferrer">Link</a></td>
                     <td>{{vendor.totalGoldQuantity}}</td>
                     <td>{{vendor.currentGoldPrice}}</td>
-                    <td>{{convertDateTimeToDateString(vendor.createdAt)}}</td>
+                   <td> <a [routerLink]="['/update']" class="btn btn-success btn-block mt-4 w-100">Update</a></td>
                 </tr>
             </tbody>
         </table>

@@ -4,6 +4,9 @@ import { PhysicalGoldTransactionService } from '../../services/physical-gold-tra
 import { PhysicalGoldTransaction } from '../../models/physical-gold-transaction';
 import { VendorBranch } from '../../models/vendor-branch';
 import { Address } from '../../models/address';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-all-physical-gold-transactions',
@@ -44,6 +47,20 @@ export class AllPhysicalGoldTransactionsComponent {
   }
 
   exportExcel() {
-    //TODO
+    const tableBody = this.transactionList.map(physicalgoldtxnlist => [
+      physicalgoldtxnlist.createdAt,
+      this.commaSeparatedString(physicalgoldtxnlist.deliveryAddress),
+      physicalgoldtxnlist.quantity      
+    ]);
+
+    const ws = XLSX.utils.aoa_to_sheet([
+      ['Created At', 'Delivery Address', 'Quantity (grams)'],
+      ...tableBody
+    ]);
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Physical Gold Transaction');
+    XLSX.writeFile(wb, 'all-physical-gold-transaction-history.xlsx');
   }
+
 }
