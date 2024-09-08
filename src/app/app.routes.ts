@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { LandingComponentComponent } from './components/landing-component/landing-component.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
-import { AuthGuard } from './gaurds/auth.guard'
+import { AuthGuard } from './guards/auth.guard'
 import { AllUsersComponent } from './components/all-users/all-users.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { TransactionHistoryComponent } from './components/transaction-history/transaction-history.component';
