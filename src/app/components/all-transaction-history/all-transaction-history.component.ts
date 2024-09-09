@@ -134,4 +134,8 @@ export class AllTransactionHistoryComponent implements OnInit {
       this.ngOnInit();
     }
   }
+
+  convertDateTimeToDateString(date: Date): string {
+    return String(date)?.replace(/T.*/, '');
+  }
 }

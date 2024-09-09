@@ -105,4 +105,8 @@ export class PhysicalGoldTransactionComponent implements OnInit {
   }
 
   updateFilterOptions() {}
+
+  convertDateTimeToDateString(date: Date): string {
+    return String(date)?.replace(/T.*/, '');
+  }
 }

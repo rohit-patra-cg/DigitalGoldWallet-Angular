@@ -39,7 +39,7 @@
                     </thead>
                     <tbody id="transactionTableBody">
                         <tr *ngFor="let txn of transactionList">
-                            <td>{{txn.createdAt}}</td>
+                            <td>{{convertDateTimeToDateString(txn.createdAt)}}</td>
                             <td>{{txn.transactionType}}</td>
                             <td><span class="badge bg-success"
                                     [ngClass]="{'bg-success': txn.transactionStatus === 'SUCCESS', 'bg-danger': txn.transactionStatus === 'FAILED'}">{{txn.transactionStatus}}</span>

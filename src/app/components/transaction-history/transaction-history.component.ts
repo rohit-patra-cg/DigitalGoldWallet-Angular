@@ -129,4 +129,8 @@ export class TransactionHistoryComponent implements OnInit {
     }
   }
 
+  convertDateTimeToDateString(date: Date): string {
+    return String(date)?.replace(/T.*/, '');
+  }
+  
 }

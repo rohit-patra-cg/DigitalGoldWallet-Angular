@@ -33,7 +33,7 @@
                     </thead>
                     <tbody id="transactionTableBody">
                         <tr *ngFor="let txn of transactionList">
-                            <td>{{txn.createdAt}}</td>
+                            <td>{{convertDateTimeToDateString(txn.createdAt)}}</td>
                             <td>{{txn.quantity}}</td>
                             <td>
                                 <strong>Street:</strong> {{txn.deliveryAddress.street}}<br>
