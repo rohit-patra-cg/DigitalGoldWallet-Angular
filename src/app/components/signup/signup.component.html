@@ -8,50 +8,85 @@
                     <h2 class="card-title text-center mb-4">Sign Up</h2>
                     <form class="row" [formGroup]="signUpForm" (ngSubmit)="signUpFormSubmit()">
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group mt-2">
                                 <label for="name">Full Name</label>
                                 <input type="text" class="form-control sg" id="name" formControlName="name" placeholder="Enter your Full Name">
+                                <div *ngIf="signUpForm.get('name')?.invalid && signUpForm.get('name')?.touched" class="alert alert-danger small mt-3" role="alert">
+                                    Valid Full Name is Required
+                                </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mt-2">
                                 <label for="email">Email</label>
                                 <input type="email" class="form-control sg" id="email" formControlName="email" placeholder="Enter your Email">
+                                <div *ngIf="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched" class="alert alert-danger small mt-3" role="alert">
+                                    Valid Email is Required
+                                </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mt-2">
                                 <label for="password">Password</label>
                                 <input type="password" class="form-control sg" id="password" formControlName="password" placeholder="Enter your Password">
+                                <div *ngIf="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched" class="alert alert-danger small mt-3" role="alert">
+                                    Valid Password is Required
+                                </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mt-2">
                                 <label for="confirmPassword">Confirm Password</label>
                                 <input type="password" class="form-control sg" id="confirmPassword" formControlName="confirmPassword" placeholder="Re-Type your Password">
+                                <div *ngIf="signUpForm.get('confirmPassword')?.value !== signUpForm.get('password')?.value && signUpForm.get('confirmPassword')?.touched" class="alert alert-danger small mt-3" role="alert">
+                                    Both Passwords Doesn't Match
+                                </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mt-2">
                                 <label for="balance">Balance</label>
                                 <input type="number" class="form-control sg" id="balance" formControlName="balance" placeholder="Enter your Initial Balance">
+                                <div *ngIf="signUpForm.get('balance')?.invalid && signUpForm.get('balance')?.touched" class="alert alert-danger small mt-3" role="alert">
+                                    Balance must be equal to or greater than 0
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group mt-2">
                                 <label for="street">Street</label>
                                 <input type="text" class="form-control sg" id="street" formControlName="street" placeholder="Enter your Street">
+                                <div *ngIf="signUpForm.get('street')?.invalid && signUpForm.get('street')?.touched" class="alert alert-danger small mt-3" role="alert">
+                                    Valid Street is Required
+                                </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mt-2">
                                 <label for="city">City</label>
                                 <input type="text" class="form-control sg" id="city" formControlName="city" placeholder="Enter your City">
+                                <div *ngIf="signUpForm.get('city')?.invalid && signUpForm.get('city')?.touched" class="alert alert-danger small mt-3" role="alert">
+                                    Valid City is Required
+                                </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mt-2">
                                 <label for="state">State</label>
                                 <input type="text" class="form-control sg" id="state" formControlName="state" placeholder="Enter your State">
+                                <div *ngIf="signUpForm.get('state')?.invalid && signUpForm.get('state')?.touched" class="alert alert-danger small mt-3" role="alert">
+                                    Valid State is Required
+                                </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mt-2">
                                 <label for="postalCode">Postal Code</label>
                                 <input type="text" class="form-control sg" id="postalCode" formControlName="postalCode" placeholder="Enter your PIN">
+                                <div *ngIf="signUpForm.get('postalCode')?.invalid && signUpForm.get('postalCode')?.touched" class="alert alert-danger small mt-3" role="alert">
+                                    Valid Postal Code is Required
+                                </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mt-2">
                                 <label for="country">Country</label>
                                 <input type="text" class="form-control sg" id="country" formControlName="country" placeholder="Enter your country ">
                             </div>
+                            <div *ngIf="signUpForm.get('country')?.invalid && signUpForm.get('country')?.touched" class="alert alert-danger small mt-3" role="alert">
+                                Valid Country is Required
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block mt-3 text-center signupButton">Sign Up</button>
+                        <div class="form-group mt-2">
+                            <button type="submit" class="btn btn-primary btn-block mt-3 w-100 justify-content-center">Sign Up</button>
+                            <div *ngIf="isSignUpFailed" class="alert alert-danger small mt-3 w-50" role="alert">
+                                Invalid Signup Details
+                            </div>
+                        </div>
                         <p class="text-center mt-3">Already have an account? <a [routerLink]="['/login']">Log In</a>
                         </p>
                     </form>

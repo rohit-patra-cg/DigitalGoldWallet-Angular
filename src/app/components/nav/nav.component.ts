@@ -11,8 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './nav.component.css'
 })
 export class NavComponent {
-
-
+  
   constructor(private authService: AuthService) {}
 
   handleLogout(): void {
