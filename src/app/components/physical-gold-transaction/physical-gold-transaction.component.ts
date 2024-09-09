@@ -9,7 +9,6 @@ import { Address } from '../../models/address';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-physical-gold-transaction',
@@ -86,12 +85,8 @@ export class PhysicalGoldTransactionComponent implements OnInit {
   
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     
-    XLSX.utils.book_append_sheet(wb, ws, 'Transactions');
-  
-    const wbout: Blob = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    
-    const blob = new Blob([wbout], { type: 'application/octet-stream' });
-    saveAs(blob, 'PhysicalGoldTransactions.xlsx');
+    XLSX.utils.book_append_sheet(wb, ws, 'PhysicalGoldTransactions');
+    XLSX.writeFile(wb, 'all-physical-gold-transactions.xlsx');
   }
   
   
