@@ -1,26 +1,26 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule, ActivatedRoute, Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { VirtualGoldHolding } from '../../models/virtual-gold-holding';
 import { VitualGoldService } from '../../services/vitual-gold.service';
-import { CommonModule } from '@angular/common';
+import { UserService } from '../../services/user.service';
 import { TransactionService } from '../../services/transaction.service';
 
 @Component({
-  selector: 'app-buy-gold',
+  selector: 'app-sell-gold',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
-  templateUrl: './buy-gold.component.html',
-  styleUrl: './buy-gold.component.css'
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  templateUrl: './sell-gold.component.html',
+  styleUrl: './sell-gold.component.css'
 })
-export class BuyGoldComponent implements OnInit {
+export class SellGoldComponent implements OnInit {
   userId!: number;
-  buyGoldForm!: FormGroup;
-  virtualGold!: VirtualGoldHolding
+  sellGoldForm!: FormGroup;
+  virtualGold!: VirtualGoldHolding;
 
   constructor(private fb: FormBuilder, private virtualGoldService: VitualGoldService, private userService: UserService, private transactionService: TransactionService, private activatedRoute: ActivatedRoute, private route: Router) {
-    this.buyGoldForm = this.fb.group({
+    this.sellGoldForm = this.fb.group({
       amount: ['', Validators.required],
       quantity: ['', Validators.required]
     });
@@ -47,25 +47,25 @@ export class BuyGoldComponent implements OnInit {
   }
 
   quantityToAmount() {
-    this.buyGoldForm.get("amount")?.setValue(Number(this.buyGoldForm.get("quantity")?.value) * this.virtualGold.branch.vendor.currentGoldPrice);
+    this.sellGoldForm.get("amount")?.setValue(Number(this.sellGoldForm.get("quantity")?.value) * this.virtualGold.branch.vendor.currentGoldPrice);
   }
 
   amountToQuantity() {
-    this.buyGoldForm.get("quantity")?.setValue(Number(this.buyGoldForm.get("amount")?.value) / this.virtualGold.branch.vendor.currentGoldPrice);
+    this.sellGoldForm.get("quantity")?.setValue(Number(this.sellGoldForm.get("amount")?.value) / this.virtualGold.branch.vendor.currentGoldPrice);
   }
 
   handleSubmit() {
-    if (this.buyGoldForm.valid) {
+    if (this.sellGoldForm.valid) {
       this.userService.getUserByUserId(this.userId).subscribe({
         next: resp => {
           let currentUserBalance = resp.balance;
-          this.userService.updateBalance(this.userId, currentUserBalance - this.buyGoldForm.value.amount).subscribe({
+          this.userService.updateBalance(this.userId, currentUserBalance + this.sellGoldForm.value.amount).subscribe({
             error: err => console.log(err)
           });
-          this.virtualGoldService.updateVirtualGoldHolding(this.virtualGold.holdingId, { branchId: this.virtualGold.branch.branchId, quantity: this.virtualGold.quantity + this.buyGoldForm.value.quantity, userId: this.userId }).subscribe({
+          this.virtualGoldService.updateVirtualGoldHolding(this.virtualGold.holdingId, { branchId: this.virtualGold.branch.branchId, quantity: this.virtualGold.quantity - this.sellGoldForm.value.quantity, userId: this.userId }).subscribe({
             error: err => console.log(err)
           });
-          this.transactionService.createTransaction({ ...this.buyGoldForm.value, branchId: this.virtualGold.branch.branchId, transactionStatus: 'SUCCESS', transactionType: 'BUY', userId: this.userId }).subscribe({
+          this.transactionService.createTransaction({ ...this.sellGoldForm.value, branchId: this.virtualGold.branch.branchId, transactionStatus: 'SUCCESS', transactionType: 'SELL', userId: this.userId }).subscribe({
             next: resp => this.route.navigate(['/dashboard', this.userId]),
             error: err => console.log(err)
           })

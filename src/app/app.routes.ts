@@ -15,6 +15,7 @@ import { AddVendorComponent } from './components/add-vendor/add-vendor.component
 import { AllVendorBranchesComponent } from './components/all-vendor-branches/all-vendor-branches.component';
 import { ConvertToPhysicalComponent } from './components/convert-to-physical/convert-to-physical.component';
 import { BuyGoldComponent } from './components/buy-gold/buy-gold.component';
+import { SellGoldComponent } from './components/sell-gold/sell-gold.component';
 
 export const routes: Routes = [
     {path: "", component: LandingComponentComponent},
@@ -33,5 +34,6 @@ export const routes: Routes = [
     {path: "update-vendor/:vendorId", component: AddVendorComponent, canActivate: [AuthGuard]}, //to be changed to admin guard
     {path: "all-vendor-branches", component: AllVendorBranchesComponent , canActivate: [AuthGuard]}, //to be changed
     {path: "convert-to-physical/:userId", component: ConvertToPhysicalComponent, canActivate: [AuthGuard]},
-    {path: "buy-gold/:userId", component: BuyGoldComponent, canActivate: [AuthGuard]}
+    {path: "buy-gold/:userId", component: BuyGoldComponent, canActivate: [AuthGuard]},
+    {path: "sell-gold/:userId", component: SellGoldComponent, canActivate: [AuthGuard]}
 ];
