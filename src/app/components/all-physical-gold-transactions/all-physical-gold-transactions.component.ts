@@ -50,28 +50,23 @@ export class AllPhysicalGoldTransactionsComponent {
   }
 
   exportPDF() {
-    // const doc = new jsPDF();
-    // doc.text("All Physical Gold Transactions", 14, 16);
+    const doc = new jsPDF();
+    doc.text("AllPhysicalGoldTransactions", 14, 16);
 
-    // const tableBody = this.transactionList.map(physicalgoldtxnlist => [
-    //   physicalgoldtxnlist.createdAt instanceof Date ? physicalgoldtxnlist.createdAt.toLocaleDateString() : physicalgoldtxnlist.createdAt,
-    //   physicalgoldtxnlist.deliveryAddress,
-    //   physicalgoldtxnlist.quantity.toString(), // Ensure quantity is a string
-    // ]);
+    const tableBody = this.transactionList.map(txn => [
+      txn.createdAt ? txn.createdAt.toString() : 'No Date',
+      txn.quantity.toString(),
+      txn.deliveryAddress ? `${txn.deliveryAddress.street}, ${txn.deliveryAddress.city}, ${txn.deliveryAddress.state}, ${txn.deliveryAddress.country}` : 'No Address',
+      txn.branch ? txn.branch.branchId.toString() : 'No Branch',
+    ]);
 
-    // autoTable(doc, {
-    //   head: [['Created At', 'Delivery Address', 'Quantity (grams)']],
-    //   body: tableBody,
-    //   startY: 20,
-    //   styles: { fontSize: 10 },
-    //   columnStyles: {
-    //     0: { cellWidth: 40 },
-    //     1: { cellWidth: 90 }, // Adjust as necessary
-    //     2: { cellWidth: 30 },
-    //   }
-    // });
+    autoTable(doc, {
+      head: [['Created At', 'Quantity (grams)', 'Delivery Address', 'Branch']],
+      body: tableBody,
+      startY: 20,
+    });
 
-    // doc.save('all-physical-gold-transaction-history.pdf');
+    doc.save('all-physical-gold-transactions.pdf'); 
 }
 
   

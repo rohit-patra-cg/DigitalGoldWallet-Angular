@@ -1,0 +1,56 @@
+<div class="animated-background"></div>
+<div class="overlay"></div>
+<div class="container mt-5 text-white form-container">
+    <div class="heading">
+        <i class="fas fa-box icon-color-gold"></i> Buy Gold
+    </div>
+    <div class="tab-content" id="myTabContent">
+        <div class="row ml-5">
+            <div class="col-md-6">
+                <h5><i class="bi bi-graph-up icon-color-green"></i> Gold Price</h5>
+                <p *ngIf="virtualGold">₹{{virtualGold.branch.vendor.currentGoldPrice}}/gm</p>
+            </div>
+            <div class="col-md-6">
+                <h5><i class="bi bi-bank icon-color-balance"></i> Current Gold Balance</h5>
+                <p>2000.1020 gm</p>
+            </div>
+        </div>
+        <div class="info-box">
+            <form class="row" [formGroup]="buyGoldForm" (ngSubmit)="handleSubmit()">
+                <!-- <div class="col-md-12">
+                    <label for="branch-id">
+                        <i class="bi bi-building icon-color-branch"></i> Select Branch
+                    </label>
+                    <select class="form-control" formControlName="branch" id="branch-id">
+                        <option value="">-- Select a Branch --</option>
+                        <option value="101">Branch 101 - Mumbai</option>
+                        <option value="102">Branch 102 - Delhi</option>
+                        <option value="103">Branch 103 - Bengaluru</option>
+                        <option value="104">Branch 104 - Kolkata</option>
+                    </select>
+                </div> -->
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <label for="buy-worth">
+                            <i class="bi bi-currency-rupee icon-color-gold"></i> Buy Gold in ₹
+                        </label>
+                        <input type="text" class="form-control" id="buy-worth" formControlName="amount" placeholder="₹ Enter the Amount" (change)="amountToQuantity()">
+                        <div id="live-buy-worth" class="mt-2"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="buy-weight">
+                            <i class="bi bi-weight icon-color-weight"></i> Buy Gold by Weight
+                        </label>
+                        <input type="text" class="form-control" id="buy-weight" formControlName="quantity" placeholder="Enter the weight" (change)="quantityToAmount()">
+                        <div id="live-buy-weight" class="mt-2"></div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">
+                    <i class="bi bi-arrow-right icon-color-gold"></i> PROCEED TO BUY
+                </button>
+                <div id="message" class="mt-3"></div>
+            </form>
+        </div>
+    </div>
+</div>
+

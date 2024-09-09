@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class NavComponent {
 
+
   constructor(private authService: AuthService) {}
 
   handleLogout(): void {
@@ -23,5 +24,9 @@ export class NavComponent {
       return localStorage.getItem("isAuthenticated")==="true" || localStorage.getItem("isAdminAuthenticated")==="true";
     }
     return false;
+  }
+
+  get logo(){
+      return'/images/image.png  '
   }
 }

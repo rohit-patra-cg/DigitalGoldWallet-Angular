@@ -28,6 +28,10 @@ export class UserService {
     return this.http.get<User[]>(this.apiUrl, { headers: this.headerList })
   }
 
+  getUserByUserId(userId: number): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/${userId}`, { headers: this.headerList })
+  }
+
   getUserBalance(userId: number): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/check_balance/${userId}`, { headers: this.headerList })
   }

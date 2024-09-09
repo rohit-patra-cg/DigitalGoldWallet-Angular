@@ -1,0 +1,86 @@
+.form-container {
+    background: rgba(56, 55, 55, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+    animation: fadeIn 2s;
+    color: aliceblue;
+}
+/* .modal-content {
+    background-color: #fff;
+    color: #000;
+} */
+/* .modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem);
+} */
+/* .modal-dialog {
+    max-width: 600px;
+} */
+.info-box {
+    /* background-color: #fff; */
+    /* border: 1px solid #ccc; */
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.heading {
+    text-align: center;
+    font-size: 3rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.icon-color-gold {
+    color: #ffcc00; /* Gold color */
+}
+.icon-color-green {
+    color: #28a745; /* Green color */
+}
+.icon-color-balance {
+    color: #17a2b8; /* Suitable color for balance */
+}
+.icon-color-quick-sell {
+    color: #ffc107; /* Suitable color for quick sell */
+}
+.icon-color-weight {
+    color: #6c757d; /* Suitable color for weight */
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Darken the background for better readability */
+    z-index: 0;
+}
+
+.animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://miro.medium.com/v2/resize:fit:1024/1*JdFcSToXFHmqyrGEz7gyqg.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    z-index: -1;
+    animation: moveBackground 35s linear infinite;
+}
+
+@keyframes moveBackground {
+    0% { background-position: 0 0; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0 0; }
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    opacity: 90%;
+}
+
+table {
+    opacity: 85%;
+}
