@@ -45,31 +45,23 @@ export class TransactionHistoryComponent implements OnInit {
   exportPDF() {
     const doc = new jsPDF();
     doc.text("Transaction History", 14, 16);
-
     const tableBody = this.transactionList.map(transaction => [
-      transaction.createdAt.toString(),
-      transaction.transactionType,
-      transaction.transactionStatus,
+      transaction.createdAt ? transaction.createdAt.toString() : 'No Date',
+      transaction.transactionType ,
+      transaction.transactionStatus ,
       transaction.quantity,
-      `Rs. ${String(transaction.amount)}`
+      `Rs. ${transaction.amount !== undefined ? String(transaction.amount) : '0'}`
     ]);
-
+  
     autoTable(doc, {
-      head: [['Created At', 'Transaction Type', 'Transaction Status', 'Quantity (grams)', 'Amount']],
+      head: [['Created At', 'Transaction Type', 'Transaction Status', 'Quantity', 'Amount']],
       body: tableBody,
       startY: 20,
-      styles: { fontSize: 10 },
-      columnStyles: {
-        0: { cellWidth: 40 },
-        1: { cellWidth: 30 },
-        2: { cellWidth: 30 },
-        3: { cellWidth: 30 },
-        4: { cellWidth: 35 }
-      }
     });
-
-    doc.save('transaction_history.pdf');
+  
+    doc.save('TransactionHistory.pdf');
   }
+  
 
   exportExcel() {
     const tableBody = this.transactionList.map(transaction => [

@@ -6,9 +6,10 @@ import { UserService } from '../../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { VendorBranch } from '../../models/vendor-branch';
 import { Address } from '../../models/address';
-import { jsPDF } from 'jspdf';
+import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-physical-gold-transaction',
@@ -28,6 +29,9 @@ export class PhysicalGoldTransactionComponent implements OnInit {
     vendor: { contactEmail: "", contactPersonName: "", createdAt: new Date(), description: "", vendorId: -1, totalGoldQuantity: -1, currentGoldPrice: -1, contactPhone: "", vendorName: "", websiteUrl: "" }
   };
 
+  typeFilter: string = "select";
+  filterName: string = "select"
+  filterOptions: string[] = [];
   constructor(private userService: UserService, private router: ActivatedRoute) { }
   
   ngOnInit(): void {
@@ -40,28 +44,59 @@ export class PhysicalGoldTransactionComponent implements OnInit {
       error: err => console.log(err)
     });
   }
-
   exportPDF() {
-    //TODO
+    const doc = new jsPDF();
+    doc.text("PhysicalGoldTransaction", 14, 16);
+
+    const tableBody = this.transactionList.map(txn => [
+      txn.createdAt ? txn.createdAt.toString() : 'No Date',
+      txn.quantity.toString(),
+      txn.deliveryAddress ? `${txn.deliveryAddress.street}, ${txn.deliveryAddress.city}, ${txn.deliveryAddress.state}, ${txn.deliveryAddress.country}` : 'No Address',
+      txn.branch ? txn.branch.branchId.toString() : 'No Branch',
+    ]);
+
+    autoTable(doc, {
+      head: [['Created At', 'Quantity (grams)', 'Delivery Address', 'Branch']],
+      body: tableBody,
+      startY: 20,
+    });
+
+    doc.save('PhysicalGoldTransactions.pdf');
   }
-
+ 
   exportExcel() {
-    const tableBody = this.transactionList.map(physicalgoldtxnlist => [
-      physicalgoldtxnlist.createdAt,
-      this.commaSeparatedString(physicalgoldtxnlist.deliveryAddress),
-      physicalgoldtxnlist.quantity      
-    ]);
-
-    const ws = XLSX.utils.aoa_to_sheet([
-      ['Created At', 'Delivery Address', 'Quantity (grams)'],
-      ...tableBody
-    ]);
-
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Physical Gold Transaction');
-    XLSX.writeFile(wb, 'physical-gold-transaction-history.xlsx');
+    const transactions = this.transactionList.map(txn => {
+      const createdAt = txn.createdAt instanceof Date ? txn.createdAt.toLocaleString() : 'Invalid Date';
+      return {
+        'Created At': createdAt,
+        'Quantity (grams)': txn.quantity || 'N/A',
+        'Delivery Address': this.commaSeparatedString(txn.deliveryAddress) || 'N/A',
+        'Branch Details': txn.branch?.vendor?.vendorName || 'N/A',
+      };
+    });
+  
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(transactions);
+    
+    ws['!cols'] = [
+      { wch: 30 },
+      { wch: 15 },
+      { wch: 30 },
+      { wch: 25 }
+    ];
+  
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    
+    XLSX.utils.book_append_sheet(wb, ws, 'Transactions');
+  
+    const wbout: Blob = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    
+    const blob = new Blob([wbout], { type: 'application/octet-stream' });
+    saveAs(blob, 'PhysicalGoldTransactions.xlsx');
   }
   
+  
+  
+
   commaSeparatedString(address: Address) {
     return `${address.street}, ${address.city}, ${address.state}, ${address.country}, PIN-${address.postalCode}`
   }
@@ -69,4 +104,10 @@ export class PhysicalGoldTransactionComponent implements OnInit {
   setBranchOnViewDetailsClick(branch: VendorBranch) {
     this.branch = branch;
   }
+
+  handleApplyFilterClick() {
+    
+  }
+
+  updateFilterOptions() {}
 }
