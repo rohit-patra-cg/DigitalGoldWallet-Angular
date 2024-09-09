@@ -5,10 +5,11 @@
     <div class="row mb-4">
         <div class="col text-center text-white">
             <h1 class="fade-in">Digital Gold at Your Fingertips</h1>
-            <p class="fade-in" style="animation-delay: 0.5s;">Your secure platform for managing virtual and physical gold</p>
+            <p class="fade-in" style="animation-delay: 0.5s;">Your secure platform for managing virtual and physical
+                gold</p>
         </div>
     </div>
- 
+
     <!-- Virtual Gold Holdings and Available Amount -->
     <div class="row mb-4">
         <div class="col-md-6">
@@ -32,7 +33,7 @@
             </div>
         </div>
     </div>
- 
+
     <!-- Action Buttons -->
     <div class="row mb-4">
         <div class="col-md-4 mb-3">
@@ -42,17 +43,76 @@
             <button class="btn btn-danger btn-lg w-100 fade-in" style="animation-delay: 0.7s;">Sell Gold</button>
         </div>
         <div class="col-md-4 mb-3">
-            <button class="btn btn-primary btn-lg w-100 fade-in" style="animation-delay: 1s;" [routerLink]="['/convert-to-physical', userId]">Convert to Physical Gold</button>
+            <button class="btn btn-primary btn-lg w-100 fade-in" style="animation-delay: 1s;"
+                [routerLink]="['/convert-to-physical', userId]">Convert to Physical Gold</button>
         </div>
     </div>
- 
+
     <!-- Additional Buttons -->
     <div class="row mb-4 justify-content-center">
         <div class="col-md-4 mb-3">
-            <button class="btn btn-warning btn-lg w-100 fade-in" style="animation-delay: 1.3s;" [routerLink]="['/transactionHistory', userId]">Transaction History</button>
+            <button class="btn btn-light btn-lg w-100 fade-in" style="animation-delay: 1.3s;" data-bs-toggle="modal"
+                data-bs-target="#confirmBuyModal">Add To Wallet</button>
         </div>
         <div class="col-md-4 mb-3">
-            <button class="btn btn-info btn-lg w-100 fade-in" style="animation-delay: 1.7s;" [routerLink]="['/physicalGoldTransactionHistory', userId]">Physical Gold Transaction History</button>
+            <button class="btn btn-warning btn-lg w-100 fade-in" style="animation-delay: 1.3s;"
+                [routerLink]="['/transactionHistory', userId]">Transaction History</button>
+        </div>
+        <div class="col-md-4 mb-3">
+            <button class="btn btn-info btn-lg w-100 fade-in" style="animation-delay: 1.7s;"
+                [routerLink]="['/physicalGoldTransactionHistory', userId]">Physical Gold Transaction History</button>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="confirmBuyModal" tabindex="-1" role="dialog" aria-labelledby="confirmBuyModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmBuyModalLabel">Confirm Buying</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="confirmBuyDetails"></div>
+                <h6>Select Payment Method:</h6>
+                <div class="payment-row">
+                    <div class="payment-column">
+                        <div class="payment-option" [ngClass]="{active: selectedMethod==='CREDIT_CARD'}" (click)="selectPayment('CREDIT_CARD')">
+                            <i class="bi bi-credit-card icon-color-gold"></i> Credit Card
+                        </div>
+                        <div class="payment-option" [ngClass]="{active: selectedMethod==='DEBIT_CARD'}" (click)="selectPayment('DEBIT_CARD')">
+                            <i class="bi bi-credit-card-2-back icon-color-gold"></i> Debit Card
+                        </div>
+                        <div class="payment-option" [ngClass]="{active: selectedMethod==='GOOGLE_PAY'}" (click)="selectPayment('GOOGLE_PAY')">
+                            <i class="bi bi-google icon-color-gold"></i> Google Pay
+                        </div>
+                        <div class="payment-option" [ngClass]="{active: selectedMethod==='AMAZON_PAY'}" (click)="selectPayment('AMAZON_PAY')">
+                            <i class="bi bi-amazon icon-color-gold"></i> Amazon Pay
+                        </div>
+                    </div>
+                    <div class="payment-column">
+                        <div class="payment-option" [ngClass]="{active: selectedMethod==='PHONEPE'}" (click)="selectPayment('PHONEPE')">
+                            <i class="bi bi-phone icon-color-gold"></i> PhonePe
+                        </div>
+                        <div class="payment-option" [ngClass]="{active: selectedMethod==='PAYTM'}" (click)="selectPayment('PAYTM')">
+                            <i class="bi bi-wallet icon-color-gold"></i> Paytm
+                        </div>
+                        <div class="payment-option" [ngClass]="{active: selectedMethod==='BANK_TRANSFER'}" (click)="selectPayment('BANK_TRANSFER')">
+                            <i class="bi bi-bank icon-color-gold"></i> Bank Transfer
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h6>
+                        <label for="addToWalletAmount" class="my-2">Amount</label>
+                    </h6>
+                    <input type="number" class="form-control sg" [(ngModel)]="addToWalletAmount" placeholder="Enter Amount">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="handleAddToWalletSubmit()">Confirm</button>
+            </div>
+        </div>
+    </div>
