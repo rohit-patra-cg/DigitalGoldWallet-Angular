@@ -2,6 +2,15 @@
 <div class="overlay"></div>
 <div class="container my-5 text-white">
     <h2 class="text-center mb-4">User List</h2>
+    <!-- Additional Controls -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <button class="btn btn-secondary w-100" id="exportPdf" (click)="exportPDF()">Export to PDF</button>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-secondary w-100" id="exportExcel" (click)="exportExcel()">Export to Excel</button>
+        </div>
+    </div>
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead class="table-dark">
