@@ -8,15 +8,14 @@ export class AdminGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) { }
 
   canActivate(): Observable<boolean> | boolean {
-    // return this.authService.isAuthenticated$.pipe(
-    //   take(1),
-    //   map(isAuthenticated => !!isAuthenticated),
-    //   tap(isAuthenticated => {
-    //     if (!isAuthenticated) {
-    //       this.router.navigate(["/"])
-    //     }
-    //   })
-    // )
-    return false;
+    return this.authService.isAdminAuthenticated$.pipe(
+      take(1),
+      map(isAdminAuthenticated => !!isAdminAuthenticated),
+      tap(isAdminAuthenticated => {
+        if (!isAdminAuthenticated) {
+          this.router.navigate(["/"])
+        }
+      })
+    )
   }
 }

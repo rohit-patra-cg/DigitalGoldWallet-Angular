@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Login } from '../models/login';
 import { BehaviorSubject, Observable, of } from 'rxjs'
+import { userInfo } from 'os';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +18,18 @@ export class AuthService {
   token$: Observable<string> = this.token.asObservable();
 
   private authenticated: boolean = typeof localStorage !== 'undefined' && !!localStorage.getItem('isAuthenticated');
+  private adminAuthenticated: boolean = typeof localStorage !== 'undefined' && !!localStorage.getItem('isAdminAuthenticated');
 
   get isAuthenticated$(): Observable<boolean> {
     return of(this.authenticated);
   }
 
-  login(loginObj: Login) {
+  get isAdminAuthenticated$(): Observable<boolean> {
+    return of(this.adminAuthenticated);
+  }
+
+  login(loginObj: Login): boolean {
+    let success: boolean = false;
     this.http.post<any>(this.apiUrl, loginObj).subscribe(
       response => {
         // Storing jwtToken in localstorage
@@ -30,15 +37,25 @@ export class AuthService {
           if (typeof localStorage !== 'undefined') {
             localStorage.setItem("username", loginObj.username);
             localStorage.setItem("jwtToken", response.jwt);
-            localStorage.setItem("isAuthenticated", String(true));
+            if (response.userId == "1") {
+              localStorage.setItem("isAdminAuthenticated", "true");
+            } else {
+              localStorage.setItem("isAuthenticated", "true");
+            }
           }
           this.token.next(response.jwt);
           this.authenticated = true;
-          this.router.navigate([`/dashboard/${response.userId}`])
+          if (response.userId != "1") {
+            success = true;
+            this.router.navigate([`/dashboard/${response.userId}`])
+          } else {
+            success = true;
+            this.router.navigate([`/admin`])
+          }
         }
         return response;
-      }
-    )
+      });
+    return success;
   }
 
   logout(): void {
@@ -47,6 +64,7 @@ export class AuthService {
       localStorage.removeItem("username");
       localStorage.removeItem("jwtToken");
       localStorage.removeItem("isAuthenticated");
+      localStorage.removeItem("isAdminAuthenticated");
     }
     this.router.navigate(["/"])
   }

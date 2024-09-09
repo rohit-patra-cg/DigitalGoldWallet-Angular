@@ -16,24 +16,28 @@ import { AllVendorBranchesComponent } from './components/all-vendor-branches/all
 import { ConvertToPhysicalComponent } from './components/convert-to-physical/convert-to-physical.component';
 import { BuyGoldComponent } from './components/buy-gold/buy-gold.component';
 import { SellGoldComponent } from './components/sell-gold/sell-gold.component';
+import { AdminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
-    {path: "", component: LandingComponentComponent},
-    {path: "login", component: LoginComponent},
-    {path: "signup", component: SignupComponent},
-    {path: "add-vendor", component: AddVendorComponent , canActivate: [AuthGuard]},//to be changed
-    {path: "all-vendor-branch", component: AllVendorBranchesComponent , canActivate: [AuthGuard]},//to be changed
-    {path: "all-vendors", component: AllVendorsComponent, canActivate: [AuthGuard]},//to be changed to admin guard
-    {path: "all-users", component: AllUsersComponent, canActivate: [AuthGuard]},//to be changed to admin guard
-    {path: "dashboard/:userId", component: UserDashboardComponent, canActivate: [AuthGuard]},
-    {path: "transactionHistory/:userId", component: TransactionHistoryComponent, canActivate: [AuthGuard]},
-    {path: "physicalGoldTransactionHistory/:userId", component: PhysicalGoldTransactionComponent, canActivate: [AuthGuard]},
-    {path: "admin", component: AdminDashboardComponent, canActivate: [AuthGuard]}, //to be changed to admin guard
-    {path: "all-physicalGoldTransactionHistory", component: AllPhysicalGoldTransactionsComponent, canActivate: [AuthGuard]}, //to be changed to admin guard
-    {path: "all-transactionHistory", component: AllTransactionHistoryComponent, canActivate: [AuthGuard]}, //to be changed to admin guard
-    {path: "update-vendor/:vendorId", component: AddVendorComponent, canActivate: [AuthGuard]}, //to be changed to admin guard
-    {path: "all-vendor-branches", component: AllVendorBranchesComponent , canActivate: [AuthGuard]}, //to be changed
-    {path: "convert-to-physical/:userId", component: ConvertToPhysicalComponent, canActivate: [AuthGuard]},
-    {path: "buy-gold/:userId", component: BuyGoldComponent, canActivate: [AuthGuard]},
-    {path: "sell-gold/:userId", component: SellGoldComponent, canActivate: [AuthGuard]}
+    /** Non Guarded */
+    { path: "", component: LandingComponentComponent },
+    { path: "login", component: LoginComponent },
+    { path: "signup", component: SignupComponent },
+    /** Auth(user) Guarded */
+    { path: "buy-gold/:userId", component: BuyGoldComponent, canActivate: [AuthGuard] },
+    { path: "sell-gold/:userId", component: SellGoldComponent, canActivate: [AuthGuard] },
+    { path: "dashboard/:userId", component: UserDashboardComponent, canActivate: [AuthGuard] },
+    { path: "transactionHistory/:userId", component: TransactionHistoryComponent, canActivate: [AuthGuard] },
+    { path: "physicalGoldTransactionHistory/:userId", component: PhysicalGoldTransactionComponent, canActivate: [AuthGuard] },
+    { path: "convert-to-physical/:userId", component: ConvertToPhysicalComponent, canActivate: [AuthGuard] },
+    /** Admin Guarded */
+    { path: "add-vendor", component: AddVendorComponent, canActivate: [AdminGuard] },
+    { path: "all-vendor-branch", component: AllVendorBranchesComponent, canActivate: [AdminGuard] },
+    { path: "all-vendors", component: AllVendorsComponent, canActivate: [AdminGuard] },
+    { path: "all-users", component: AllUsersComponent, canActivate: [AdminGuard] },
+    { path: "admin", component: AdminDashboardComponent, canActivate: [AdminGuard] },
+    { path: "all-physicalGoldTransactionHistory", component: AllPhysicalGoldTransactionsComponent, canActivate: [AdminGuard] },
+    { path: "all-transactionHistory", component: AllTransactionHistoryComponent, canActivate: [AdminGuard] },
+    { path: "update-vendor/:vendorId", component: AddVendorComponent, canActivate: [AdminGuard] },
+    { path: "all-vendor-branches", component: AllVendorBranchesComponent, canActivate: [AdminGuard] },
 ];
