@@ -1,0 +1,44 @@
+<div class="animated-background"></div>
+<div class="overlay"></div>
+<div class="container mt-5 text-white form-container" >
+    <div class="heading"><i class="fas fa-box icon-color-gold"></i> Convert to Physical Gold</div>
+    <div class="tab-content" id="myTabContent">
+        <form class="tab-pane fade show active" role="tabpanel" aria-labelledby="convert-gold-tab" [formGroup]="physicalForm">
+            <div class="info-box">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5><i class="fas fa-balance-scale icon-color-balance"></i> Available Gold Balance</h5>
+                        <p>{{virtualGold.quantity}} grams</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fas fa-box icon-color-gold"></i> Convert to Physical Gold</h5>
+                        <input type="text" class="form-control" formControlName="quantity" placeholder="Enter the weight in gm">
+                        <div id="live-convert" class="mt-2"></div> <!-- New div for live value -->
+                    </div>
+                    <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                        <i class="fas fa-arrow-right icon-color-gold"></i> PROCEED TO CONVERT
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Confirm Conversion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="confirmDetails">
+                Are you sure to proceed to convert you virtual gold to physical gold?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="handleSubmit()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>

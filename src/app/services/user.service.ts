@@ -39,4 +39,8 @@ export class UserService {
   getAllPhysicalGoldTransactions(userId: number): Observable<PhysicalGoldTransaction[]> {
     return this.http.get<PhysicalGoldTransaction[]>(`${this.apiUrl}/${userId}/physical_gold_holdings`, { headers: this.headerList })
   }
+
+  updateBalance(userId: number, newBalance: number) {
+    return this.http.put<SuccessResponse>(`${this.apiUrl}/${userId}/update_balance/${newBalance}`, {}, { headers: this.headerList });
+  }
 }

@@ -13,6 +13,7 @@ import { AllPhysicalGoldTransactionsComponent } from './components/all-physical-
 import { AllTransactionHistoryComponent } from './components/all-transaction-history/all-transaction-history.component';
 import { AddVendorComponent } from './components/add-vendor/add-vendor.component';
 import { AllVendorBranchesComponent } from './components/all-vendor-branches/all-vendor-branches.component';
+import { ConvertToPhysicalComponent } from './components/convert-to-physical/convert-to-physical.component';
 
 export const routes: Routes = [
     {path: "", component: LandingComponentComponent},
@@ -29,5 +30,6 @@ export const routes: Routes = [
     {path: "all-physicalGoldTransactionHistory", component: AllPhysicalGoldTransactionsComponent, canActivate: [AuthGuard]}, //to be changed to admin guard
     {path: "all-transactionHistory", component: AllTransactionHistoryComponent, canActivate: [AuthGuard]}, //to be changed to admin guard
     {path: "update-vendor/:vendorId", component: AddVendorComponent, canActivate: [AuthGuard]}, //to be changed to admin guard
-    {path: "all-vendor-branches", component: AllVendorBranchesComponent , canActivate: [AuthGuard]} //to be changed
+    {path: "all-vendor-branches", component: AllVendorBranchesComponent , canActivate: [AuthGuard]}, //to be changed
+    {path: "convert-to-physical/:userId", component: ConvertToPhysicalComponent, canActivate: [AuthGuard]}
 ];
