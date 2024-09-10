@@ -23,11 +23,11 @@ export class AddVendorComponent implements OnInit {
       vendorName: ['', [Validators.required]],
       description: ['', [Validators.required]],
       contactPersonName: ['', [Validators.required]],
-      contactEmail: ['', [Validators.required]],
+      contactEmail: ['', [Validators.required, Validators.email]],
       contactPhone: ['', [Validators.required]],
       websiteUrl: ['', [Validators.required]],
-      totalGoldQuantity: ['', [Validators.required]],
-      currentGoldPrice: ['', [Validators.required]],
+      totalGoldQuantity: ['', [Validators.required, Validators.min(1)]],
+      currentGoldPrice: ['', [Validators.required, Validators.min(5000)]],
     });
   }
 
@@ -43,11 +43,11 @@ export class AddVendorComponent implements OnInit {
                 vendorName: [this.vendor.vendorName, [Validators.required]],
                 description: [this.vendor.description, [Validators.required]],
                 contactPersonName: [this.vendor.contactPersonName, [Validators.required]],
-                contactEmail: [this.vendor.contactEmail, [Validators.required]],
+                contactEmail: [this.vendor.contactEmail, [Validators.required, Validators.email]],
                 contactPhone: [this.vendor.contactPhone, [Validators.required]],
                 websiteUrl: [this.vendor.websiteUrl, [Validators.required]],
-                totalGoldQuantity: [this.vendor.totalGoldQuantity, [Validators.required]],
-                currentGoldPrice: [this.vendor.currentGoldPrice, [Validators.required]],
+                totalGoldQuantity: [this.vendor.totalGoldQuantity, [Validators.required, Validators.min(1)]],
+                currentGoldPrice: [this.vendor.currentGoldPrice, [Validators.required, Validators.min(5000)]],
               });
             },
             error: err => console.log(err)

@@ -7,36 +7,60 @@
           <h2 class="text-center">Add Vendor</h2>
           <form class="row" [formGroup]="addVendorForm" (ngSubmit)="handleSubmit()">
             <div class="mb-3">
-              <label for="branchName" class="form-label "><i class="bi bi-building"></i> Branch Name</label>
-              <input type="text" class="form-control gs" id="branchName" formControlName="vendorName" placeholder="Enter branch name" required>
+              <label for="vendorName" class="form-label "><i class="bi bi-building"></i> Branch Name</label>
+              <input type="text" class="form-control gs" id="vendorName" formControlName="vendorName" placeholder="Enter branch name" required>
+              <div *ngIf="addVendorForm.get('vendorName')?.invalid && addVendorForm.get('vendorName')?.touched" class="alert alert-danger small mt-3" role="alert">
+                Vendor Name is required.
+              </div>
             </div>
             <div class="mb-3">
               <label for="description" class="form-label"><i class="bi bi-card-text"></i> Description</label>
               <textarea class="form-control scrollable gs" id="description" formControlName="description" rows="3" placeholder="Enter description" required></textarea>
+              <div *ngIf="addVendorForm.get('description')?.invalid && addVendorForm.get('description')?.touched" class="alert alert-danger small mt-3" role="alert">
+                Description is required.
+              </div>
             </div>
             <div class="mb-3">
               <label for="contactPersonName" class="form-label"><i class="bi bi-person"></i> Contact Person Name</label>
               <input type="text" class="form-control gs" id="contactPersonName"  formControlName="contactPersonName" placeholder="Enter contact person name" required>
+              <div *ngIf="addVendorForm.get('contactPersonName')?.invalid && addVendorForm.get('contactPersonName')?.touched" class="alert alert-danger small mt-3" role="alert">
+                Contact Person Name is required.
+              </div>
             </div>
             <div class="mb-3">
               <label for="email" class="form-label"><i class="bi bi-envelope"></i> Email</label>
               <input type="email" class="form-control gs" id="email" formControlName="contactEmail" placeholder="Enter email" required>
+              <div *ngIf="addVendorForm.get('contactEmail')?.invalid && addVendorForm.get('contactEmail')?.touched" class="alert alert-danger small mt-3" role="alert">
+                Contact Email is required.
+              </div>
             </div>
             <div class="mb-3">
               <label for="phone" class="form-label"><i class="bi bi-phone"></i> Phone</label>
               <input type="tel" class="form-control gs" id="phone" formControlName ="contactPhone" placeholder="Enter phone number" required>
+              <div *ngIf="addVendorForm.get('contactPhone')?.invalid && addVendorForm.get('contactPhone')?.touched" class="alert alert-danger small mt-3" role="alert">
+                Contact Phone Number is required.
+              </div>
             </div>
             <div class="mb-3">
               <label for="websiteURL" class="form-label"><i class="bi bi-globe"></i> Website URL</label>
-              <input type="url" class="form-control gs" id="websiteURL" formControlName="websiteUrl" placeholder="Enter website URL">
+              <input type="text" class="form-control gs" id="websiteURL" formControlName="websiteUrl" placeholder="Enter website URL"/>
+              <div *ngIf="addVendorForm.get('websiteUrl')?.invalid && addVendorForm.get('websiteUrl')?.touched" class="alert alert-danger small mt-3" role="alert">
+                Website URL is required.
+              </div>
             </div>
             <div class="mb-3">
               <label for="totalGoldQuantity" class="form-label"><i class="bi bi-calculator"></i> Total Gold Quantity</label>
               <input type="number" class="form-control gs" id="totalGoldQuantity" formControlName="totalGoldQuantity" placeholder="Enter total gold quantity" required>
+              <div *ngIf="addVendorForm.get('totalGoldQuantity')?.invalid && addVendorForm.get('totalGoldQuantity')?.touched" class="alert alert-danger small mt-3" role="alert">
+                Total Gold Quantity should be greater than 1.
+              </div>
             </div>
             <div class="mb-3">
               <label for="currentGoldPrice" class="form-label"><i class="bi bi-currency-dollar"></i> Current Gold Price</label>
               <input type="number" class="form-control gs" id="currentGoldPrice" formControlName="currentGoldPrice" placeholder="Enter current gold price" required>
+              <div *ngIf="addVendorForm.get('currentGoldPrice')?.invalid && addVendorForm.get('currentGoldPrice')?.touched" class="alert alert-danger small mt-3" role="alert">
+                Current Gold Price should be greater than 5000.
+              </div>
             </div>
             <button type="submit" class="btn btn-primary w-100"><i class="bi bi-check-circle"></i> Submit</button>
           </form>

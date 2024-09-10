@@ -13,7 +13,9 @@
                     <div class="col-md-6">
                         <h5><i class="fas fa-box icon-color-gold"></i> Convert to Physical Gold</h5>
                         <input type="text" class="form-control" formControlName="quantity" placeholder="Enter the weight in gm">
-                        <div id="live-convert" class="mt-2"></div> <!-- New div for live value -->
+                        <div *ngIf="physicalForm.get('quantity')?.invalid && physicalForm.get('quantity')?.touched" class="alert alert-danger small mt-3" role="alert">
+                            Maximum Quantity can be {{virtualGold.quantity}}
+                        </div>
                     </div>
                     <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#confirmModal">
                         <i class="fas fa-arrow-right icon-color-gold"></i> PROCEED TO CONVERT

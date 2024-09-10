@@ -4,11 +4,12 @@ import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { VirtualGoldHolding } from '../../models/virtual-gold-holding';
 import { VitualGoldService } from '../../services/vitual-gold.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-convert-to-physical',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule],
+  imports: [ReactiveFormsModule, RouterModule, CommonModule],
   templateUrl: './convert-to-physical.component.html',
   styleUrl: './convert-to-physical.component.css'
 })
@@ -36,6 +37,9 @@ export class ConvertToPhysicalComponent implements OnInit {
       next: resp => this.virtualGold = resp[0],
       error: err => console.log(err)
     });
+    this.physicalForm = this.fb.group({
+      quantity: ['', [Validators.required, Validators.max(this.virtualGold.quantity)]],
+    })
   }
 
   handleSubmit() {
