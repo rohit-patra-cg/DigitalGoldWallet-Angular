@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
+import { Address } from '../../models/address';
 
 @Component({
   selector: 'app-all-users',
@@ -32,6 +33,10 @@ export class AllUsersComponent implements OnInit {
     return String(date)?.replace(/T.*/, '');
   }
 
+  commaSeparatedString(address: Address) {
+    return `${address.street}, ${address.city}, ${address.state}, ${address.country}, PIN-${address.postalCode}`
+  }
+
   exportPDF() {
     const doc = new jsPDF();
     doc.text("All Users List", 14, 16);
@@ -39,33 +44,33 @@ export class AllUsersComponent implements OnInit {
     const tableBody = this.userList.map(usr => [
       usr.name,
       usr.email,
-      usr.address.state,
+      this.commaSeparatedString(usr.address),
       usr.balance,
       usr.createdAt.toString()
     ]);
 
     autoTable(doc, {
-      head: [['Name', 'Email', 'Address','Balance', 'Member Since']],
+      head: [['Name', 'Email', 'Address', 'Balance', 'Member Since']],
       body: tableBody,
       startY: 20,
       styles: { fontSize: 10 },
-      
+
     });
 
     doc.save('all-users-list.pdf');
   }
- 
+
   exportExcel() {
     const tableBody = this.userList.map(usr => [
       usr.name,
       usr.email,
-      usr.address.state,
+      this.commaSeparatedString(usr.address),
       usr.balance,
       usr.createdAt.toString()
     ]);
 
     const ws = XLSX.utils.aoa_to_sheet([
-      ['Name', 'Email', 'Address','Balance', 'Member Since'],
+      ['Name', 'Email', 'Address', 'Balance', 'Member Since'],
       ...tableBody
     ]);
 
@@ -73,5 +78,5 @@ export class AllUsersComponent implements OnInit {
     XLSX.utils.book_append_sheet(wb, ws, 'All Users List');
     XLSX.writeFile(wb, 'all-users-List.xlsx');
   }
-  
+
 }

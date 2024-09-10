@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-all-physical-gold-transactions',
   standalone: true,
-  imports: [CommonModule,RouterModule,FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './all-physical-gold-transactions.component.html',
   styleUrl: './all-physical-gold-transactions.component.css'
 })
@@ -66,16 +66,14 @@ export class AllPhysicalGoldTransactionsComponent {
       startY: 20,
     });
 
-    doc.save('all-physical-gold-transactions.pdf'); 
-}
-
-  
+    doc.save('all-physical-gold-transactions.pdf');
+  }
 
   exportExcel() {
     const tableBody = this.transactionList.map(physicalgoldtxnlist => [
       physicalgoldtxnlist.createdAt,
       this.commaSeparatedString(physicalgoldtxnlist.deliveryAddress),
-      physicalgoldtxnlist.quantity      
+      physicalgoldtxnlist.quantity
     ]);
 
     const ws = XLSX.utils.aoa_to_sheet([
