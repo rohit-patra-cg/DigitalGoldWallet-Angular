@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { VirtualGoldHolding } from '../../models/virtual-gold-holding';
@@ -16,15 +16,13 @@ import { TransactionService } from '../../services/transaction.service';
 })
 export class BuyGoldComponent implements OnInit {
   userId!: number;
-  buyGoldForm!: FormGroup;
-  virtualGold!: VirtualGoldHolding
+  buyGoldForm: FormGroup = new FormGroup({
+    amount: new FormControl(),
+    quantity: new FormControl(),
+  });
+  virtualGold!: VirtualGoldHolding;
 
-  constructor(private fb: FormBuilder, private virtualGoldService: VitualGoldService, private userService: UserService, private transactionService: TransactionService, private activatedRoute: ActivatedRoute, private route: Router) {
-    this.buyGoldForm = this.fb.group({
-      amount: ['', Validators.required],
-      quantity: ['', Validators.required]
-    });
-  }
+  constructor(private fb: FormBuilder, private virtualGoldService: VitualGoldService, private userService: UserService, private transactionService: TransactionService, private activatedRoute: ActivatedRoute, private route: Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe({
@@ -38,16 +36,13 @@ export class BuyGoldComponent implements OnInit {
 
     this.userService.getAllVitualGoldHoldings(this.userId).subscribe({
       next: resp => {
-        if (resp.length !== 0) {
-          this.virtualGold = resp[0];
-        }
+        this.virtualGold = resp[0];
+        this.buyGoldForm = this.fb.group({
+          amount: ['', [Validators.required, Validators.max(this.virtualGold.user.balance)]],
+          quantity: ['', [Validators.required, Validators.max(this.virtualGold.branch.quantity)]]
+        });
       },
       error: err => console.log(err)
-    });
-
-    this.buyGoldForm = this.fb.group({
-      amount: ['', [Validators.required, Validators.max(this.virtualGold.user.balance)]],
-      quantity: ['', [Validators.required, Validators.max(this.virtualGold.branch.quantity)]]
     });
   }
 

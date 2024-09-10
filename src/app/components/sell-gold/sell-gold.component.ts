@@ -38,15 +38,13 @@ export class SellGoldComponent implements OnInit {
 
     this.userService.getAllVitualGoldHoldings(this.userId).subscribe({
       next: resp => {
-        if (resp.length !== 0) {
           this.virtualGold = resp[0];
-        }
+          this.sellGoldForm = this.fb.group({
+            amount: ['', [Validators.required, Validators.max(this.virtualGold.quantity * this.virtualGold.branch.vendor.currentGoldPrice)]],
+            quantity: ['', [Validators.required, Validators.max(this.virtualGold.quantity)]]
+          });
       },
       error: err => console.log(err)
-    });
-    this.sellGoldForm = this.fb.group({
-      amount: ['', [Validators.required, Validators.max(this.virtualGold.quantity * this.virtualGold.branch.vendor.currentGoldPrice)]],
-      quantity: ['', [Validators.required, Validators.max(this.virtualGold.quantity)]]
     });
   }
 
