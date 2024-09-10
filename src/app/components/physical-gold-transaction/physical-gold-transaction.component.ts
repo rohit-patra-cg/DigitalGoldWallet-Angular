@@ -89,9 +89,6 @@ export class PhysicalGoldTransactionComponent implements OnInit {
     XLSX.writeFile(wb, 'all-physical-gold-transactions.xlsx');
   }
   
-  
-  
-
   commaSeparatedString(address: Address) {
     return `${address.street}, ${address.city}, ${address.state}, ${address.country}, PIN-${address.postalCode}`
   }
@@ -99,12 +96,6 @@ export class PhysicalGoldTransactionComponent implements OnInit {
   setBranchOnViewDetailsClick(branch: VendorBranch) {
     this.branch = branch;
   }
-
-  handleApplyFilterClick() {
-    
-  }
-
-  updateFilterOptions() {}
 
   convertDateTimeToDateString(date: Date): string {
     return String(date)?.replace(/T.*/, '');
