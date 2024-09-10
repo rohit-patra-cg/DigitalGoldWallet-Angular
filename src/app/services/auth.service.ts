@@ -37,7 +37,7 @@ export class AuthService {
           if (typeof localStorage !== 'undefined') {
             localStorage.setItem("username", loginObj.username);
             localStorage.setItem("jwtToken", response.jwt);
-            if (Number(response.userId) === 1) {
+            if (Number(response.userId) === 0) {
               localStorage.setItem("isAdminAuthenticated", "true");
             } else {
               localStorage.setItem("isAuthenticated", "true");
@@ -47,7 +47,7 @@ export class AuthService {
           this.authenticated = true;
           console.log(response.userId);
           
-          if (Number(response.userId) === 1) {
+          if (Number(response.userId) === 0) {
             success = true;
             this.router.navigate([`/admin`])
           } else {
