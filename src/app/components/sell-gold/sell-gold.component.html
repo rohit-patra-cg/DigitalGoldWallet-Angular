@@ -12,37 +12,29 @@
             </div>
             <div class="col-md-6">
                 <h5><i class="bi bi-bank icon-color-balance"></i> Current Gold Balance</h5>
-                <p>2000.1020 gm</p>
+                <p>{{this.virtualGold.user.balance}} gm</p>
             </div>
         </div>
         <div class="info-box">
             <form class="row" [formGroup]="sellGoldForm" (ngSubmit)="handleSubmit()">
-                <!-- <div class="col-md-12">
-                    <label for="branch-id">
-                        <i class="bi bi-building icon-color-branch"></i> Select Branch
-                    </label>
-                    <select class="form-control" formControlName="branch" id="branch-id">
-                        <option value="">-- Select a Branch --</option>
-                        <option value="101">Branch 101 - Mumbai</option>
-                        <option value="102">Branch 102 - Delhi</option>
-                        <option value="103">Branch 103 - Bengaluru</option>
-                        <option value="104">Branch 104 - Kolkata</option>
-                    </select>
-                </div> -->
                 <div class="row mt-4">
                     <div class="col-md-6">
                         <label for="buy-worth">
                             <i class="bi bi-currency-rupee icon-color-gold"></i> Sell Gold in ₹
                         </label>
                         <input type="number" class="form-control" id="buy-worth" formControlName="amount" placeholder="₹ Enter the Amount" (change)="amountToQuantity()">
-                        <div id="live-buy-worth" class="mt-2"></div>
+                        <div *ngIf="sellGoldForm.get('amount')?.invalid && sellGoldForm.get('amount')?.touched" class="alert alert-danger small mt-3" role="alert">
+                            Maximum Amount Can Be {{roundToFloor(this.virtualGold.quantity * this.virtualGold.branch.vendor.currentGoldPrice)}} grams
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <label for="buy-weight">
                             <i class="bi bi-weight icon-color-weight"></i> Sell Gold by Weight
                         </label>
                         <input type="number" class="form-control" id="buy-weight" formControlName="quantity" placeholder="Enter the weight" (change)="quantityToAmount()">
-                        <div id="live-buy-weight" class="mt-2"></div>
+                        <div *ngIf="sellGoldForm.get('quantity')?.invalid && sellGoldForm.get('quantity')?.touched" class="alert alert-danger small mt-3" role="alert">
+                            Maximum Quantity Can Be {{this.virtualGold.quantity}} grams
+                        </div>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary mt-3">

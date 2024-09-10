@@ -44,6 +44,10 @@ export class SellGoldComponent implements OnInit {
       },
       error: err => console.log(err)
     });
+    this.sellGoldForm = this.fb.group({
+      amount: ['', [Validators.required, Validators.max(this.virtualGold.quantity * this.virtualGold.branch.vendor.currentGoldPrice)]],
+      quantity: ['', [Validators.required, Validators.max(this.virtualGold.quantity)]]
+    });
   }
 
   quantityToAmount() {
@@ -54,21 +58,25 @@ export class SellGoldComponent implements OnInit {
     this.sellGoldForm.get("quantity")?.setValue(Number(this.sellGoldForm.get("amount")?.value) / this.virtualGold.branch.vendor.currentGoldPrice);
   }
 
+  roundToFloor(num: number) {
+    return Math.floor(num);
+  }
+
   handleSubmit() {
     if (this.sellGoldForm.valid) {
       this.userService.getUserByUserId(this.userId).subscribe({
         next: resp => {
           let currentUserBalance = resp.balance;
-          this.userService.updateBalance(this.userId, currentUserBalance + this.sellGoldForm.value.amount).subscribe({
-            error: err => console.log(err)
-          });
           this.virtualGoldService.updateVirtualGoldHolding(this.virtualGold.holdingId, { branchId: this.virtualGold.branch.branchId, quantity: this.virtualGold.quantity - this.sellGoldForm.value.quantity, userId: this.userId }).subscribe({
+            next: resp => this.userService.updateBalance(this.userId, currentUserBalance + this.sellGoldForm.value.amount).subscribe({
+              next: resp => this.transactionService.createTransaction({ ...this.sellGoldForm.value, branchId: this.virtualGold.branch.branchId, transactionStatus: 'SUCCESS', transactionType: 'SELL', userId: this.userId }).subscribe({
+                next: resp => this.route.navigate(['/dashboard', this.userId]),
+                error: err => console.log(err)
+              }),
+              error: err => console.log(err)
+            }),
             error: err => console.log(err)
           });
-          this.transactionService.createTransaction({ ...this.sellGoldForm.value, branchId: this.virtualGold.branch.branchId, transactionStatus: 'SUCCESS', transactionType: 'SELL', userId: this.userId }).subscribe({
-            next: resp => this.route.navigate(['/dashboard', this.userId]),
-            error: err => console.log(err)
-          })
         },
         error: err => console.log(err)
       });

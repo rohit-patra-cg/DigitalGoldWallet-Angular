@@ -44,6 +44,11 @@ export class BuyGoldComponent implements OnInit {
       },
       error: err => console.log(err)
     });
+
+    this.buyGoldForm = this.fb.group({
+      amount: ['', [Validators.required, Validators.max(this.virtualGold.user.balance)]],
+      quantity: ['', [Validators.required, Validators.max(this.virtualGold.branch.quantity)]]
+    });
   }
 
   quantityToAmount() {
@@ -60,15 +65,15 @@ export class BuyGoldComponent implements OnInit {
         next: resp => {
           let currentUserBalance = resp.balance;
           this.userService.updateBalance(this.userId, currentUserBalance - this.buyGoldForm.value.amount).subscribe({
+            next: resp => this.virtualGoldService.updateVirtualGoldHolding(this.virtualGold.holdingId, { branchId: this.virtualGold.branch.branchId, quantity: this.virtualGold.quantity + this.buyGoldForm.value.quantity, userId: this.userId }).subscribe({
+              next: resp => this.transactionService.createTransaction({ ...this.buyGoldForm.value, branchId: this.virtualGold.branch.branchId, transactionStatus: 'SUCCESS', transactionType: 'BUY', userId: this.userId }).subscribe({
+                next: resp => this.route.navigate(['/dashboard', this.userId]),
+                error: err => console.log(err)
+              }),
+              error: err => console.log(err)
+            }),
             error: err => console.log(err)
           });
-          this.virtualGoldService.updateVirtualGoldHolding(this.virtualGold.holdingId, { branchId: this.virtualGold.branch.branchId, quantity: this.virtualGold.quantity + this.buyGoldForm.value.quantity, userId: this.userId }).subscribe({
-            error: err => console.log(err)
-          });
-          this.transactionService.createTransaction({ ...this.buyGoldForm.value, branchId: this.virtualGold.branch.branchId, transactionStatus: 'SUCCESS', transactionType: 'BUY', userId: this.userId }).subscribe({
-            next: resp => this.route.navigate(['/dashboard', this.userId]),
-            error: err => console.log(err)
-          })
         },
         error: err => console.log(err)
       });

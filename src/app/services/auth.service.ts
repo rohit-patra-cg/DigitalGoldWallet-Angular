@@ -37,7 +37,7 @@ export class AuthService {
           if (typeof localStorage !== 'undefined') {
             localStorage.setItem("username", loginObj.username);
             localStorage.setItem("jwtToken", response.jwt);
-            if (response.userId == "1") {
+            if (Number(response.userId) === 1) {
               localStorage.setItem("isAdminAuthenticated", "true");
             } else {
               localStorage.setItem("isAuthenticated", "true");
@@ -45,12 +45,14 @@ export class AuthService {
           }
           this.token.next(response.jwt);
           this.authenticated = true;
-          if (response.userId != "1") {
-            success = true;
-            this.router.navigate([`/dashboard/${response.userId}`])
-          } else {
+          console.log(response.userId);
+          
+          if (Number(response.userId) === 1) {
             success = true;
             this.router.navigate([`/admin`])
+          } else {
+            success = true;
+            this.router.navigate([`/dashboard/${response.userId}`])
           }
         }
         return response;
