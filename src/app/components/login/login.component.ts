@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -23,11 +24,18 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value);
-      this.isLoginFailed = true;
-    } else {
-      this.isLoginFailed = true;
-    }
+    of().subscribe(
+      () => {
+        if (this.loginForm.valid) {
+          this.authService.login(this.loginForm.value);
+          if (localStorage?.getItem("isAuthenticated") || localStorage?.getItem("isAdminAuthenticated")) {
+            this.isLoginFailed = true;
+          }
+        }
+        else {
+          this.isLoginFailed = true;
+        }
+      }
+    )
   }
 }

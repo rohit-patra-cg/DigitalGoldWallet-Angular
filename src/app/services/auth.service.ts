@@ -28,36 +28,43 @@ export class AuthService {
     return of(this.adminAuthenticated);
   }
 
-  login(loginObj: Login): boolean {
-    let success: boolean = false;
-    this.http.post<any>(this.apiUrl, loginObj).subscribe(
-      response => {
+  login(loginObj: Login) {
+    this.http.post<any>(this.apiUrl, loginObj).subscribe({
+      next: response => {
         // Storing jwtToken in localstorage
         if (response && response.success) {
           if (typeof localStorage !== 'undefined') {
             localStorage.setItem("username", loginObj.username);
             localStorage.setItem("jwtToken", response.jwt);
             if (Number(response.userId) === 0) {
+              localStorage.removeItem("isAuthenticated");
               localStorage.setItem("isAdminAuthenticated", "true");
             } else {
+              localStorage.removeItem("iAdminsAuthenticated");
               localStorage.setItem("isAuthenticated", "true");
             }
           }
           this.token.next(response.jwt);
           this.authenticated = true;
           console.log(response.userId);
-          
+
           if (Number(response.userId) === 0) {
-            success = true;
             this.router.navigate([`/admin`])
           } else {
-            success = true;
             this.router.navigate([`/dashboard/${response.userId}`])
           }
         }
-        return response;
-      });
-    return success;
+      },
+      error: err => {
+        console.log(err);
+        if (typeof localStorage !== 'undefined') {
+          localStorage.removeItem("username");
+          localStorage.removeItem("jwtToken");
+          localStorage.removeItem("isAuthenticated");
+          localStorage.removeItem("isAdminAuthenticated");
+        }
+      }
+    });
   }
 
   logout(): void {
