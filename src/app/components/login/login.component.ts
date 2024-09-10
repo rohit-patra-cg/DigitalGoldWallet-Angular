@@ -24,18 +24,14 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    of().subscribe(
-      () => {
-        if (this.loginForm.valid) {
-          this.authService.login(this.loginForm.value);
-          if (localStorage?.getItem("isAuthenticated") || localStorage?.getItem("isAdminAuthenticated")) {
-            this.isLoginFailed = true;
-          }
-        }
-        else {
-          this.isLoginFailed = true;
-        }
+    if (this.loginForm.valid) {
+      this.authService.login(this.loginForm.value);
+      if (localStorage?.getItem("isAuthenticated") || localStorage?.getItem("isAdminAuthenticated")) {
+        this.isLoginFailed = true;
       }
-    )
+    }
+    else {
+      this.isLoginFailed = true;
+    }
   }
 }
