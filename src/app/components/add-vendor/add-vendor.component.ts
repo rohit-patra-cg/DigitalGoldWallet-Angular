@@ -61,15 +61,18 @@ export class AddVendorComponent implements OnInit {
   handleSubmit() {
     if (this.addVendorForm.valid) {
       let vendor!: Vendor;
+      vendor = { ...this.addVendorForm.value };
       if (this.vendor) {
-        vendor = { ...this.addVendorForm.value, vendorId: this.vendorId };
+        this.vendorService.updateVendor(this.vendorId, vendor).subscribe({
+          next: resp => this.router.navigate(["/all-vendors"]),
+          error: err => console.log(err)
+        })
       } else {
-        vendor = { ...this.addVendorForm.value };
+        this.vendorService.addVendor(vendor).subscribe({
+          next: resp => this.router.navigate(["/all-vendors"]),
+          error: err => console.log(err)
+        });
       }
-      this.vendorService.addVendor(vendor).subscribe({
-        next: resp => this.router.navigate(["/all-vendors"]),
-        error: err => console.log(err)
-      });
     }
   }
 }

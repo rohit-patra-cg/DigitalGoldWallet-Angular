@@ -28,4 +28,8 @@ export class VendorService {
   getVendorByVendorId(vendorId: number): Observable<Vendor> {
     return this.http.get<Vendor>(`${this.apiUrl}/${vendorId}`, { headers: this.headerList });
   }
+
+  updateVendor(vendorId: number, vendor: Vendor): Observable<SuccessResponse> {
+    return this.http.put<SuccessResponse>(`${this.apiUrl}/update/${vendorId}`, vendor, { headers: this.headerList });
+  }
 }

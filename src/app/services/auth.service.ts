@@ -57,12 +57,6 @@ export class AuthService {
       },
       error: err => {
         console.log(err);
-        if (typeof localStorage !== 'undefined') {
-          localStorage.removeItem("username");
-          localStorage.removeItem("jwtToken");
-          localStorage.removeItem("isAuthenticated");
-          localStorage.removeItem("isAdminAuthenticated");
-        }
       }
     });
   }
